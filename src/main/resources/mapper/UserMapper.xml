@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.graduation.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.User" >
+        <result column="userId" property="userId" />
+        <result column="userName" property="userName" />
+        <result column="password" property="password" />
+        <result column="realName" property="realName" />
+        <result column="address" property="address" />
+        <result column="email" property="email" />
+        <result column="phone" property="phone" />
+        <result column="createDate" property="createDate" />
+        <result column="sculpture" property="sculpture" />
+        <result column="phone" property="phone" />
+        <result column="roleId" property="roleId" />
+        <result column="addressId" property="addressId" />
+        <result column="remark1" property="remark1" />
+        <result column="remark2" property="remark2" />
+        <result column="remark3" property="remark3" />
+    </resultMap>
+    <select id="findById" resultMap="BaseResultMap">
+        select * from user where userId = #{userId}
+    </select>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from user;
+    </select>
+</mapper>
