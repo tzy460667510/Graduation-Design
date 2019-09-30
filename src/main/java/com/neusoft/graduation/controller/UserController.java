@@ -16,16 +16,15 @@ import javax.annotation.Resource;
  * @Date 2019/9/22 18:01
  * Version 1.0
  **/
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
     @GetMapping
-    @ResponseBody
-    public User findUser(@RequestParam(value = "userId") Long userId){
-        return userService.findById(userId);
+    public User findUser(@RequestParam(value = "userId") int userId){
+        return userService.queryUserByUserId(userId);
     }
 
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.graduation.dao.AddressDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.Address">
+        <result column="addressId" property="addressId"/>
+        <result column="userId" property="userId"/>
+        <result column="userName" property="userName"/>
+        <result column="addressDetail" property="addressDetail"/>
+    </resultMap>
+    <select id="queryAllAddress" resultMap="BaseResultMap">
+        select addressId,userId,userName,addressDetail
+        from address;
+    </select>
+    <select id="queryAddressByAddressId" resultMap="BaseResultMap">
+        select addressId,userId,userName,addressDetail
+        from address
+        where addressId = #{addressId};
+    </select>
+    <select id="queryAddressByUserId" resultMap="BaseResultMap">
+        select addressId,userId,userName,addressDetail
+        from address
+        where userId = #{userId};
+    </select>
+    <select id="queryAddressByUserName" resultMap="BaseResultMap">
+        select addressId,userId,userName,addressDetail
+        from address
+        where userName = #{userName};
+    </select>
+    <insert id="addAdress" parameterType="com.neusoft.graduation.entity.Address">
+        INSERT INTO address(addressId,userId,userName,addressDetail)
+        VALUE (#{addressId},#{userId},#{userName},#{addressDetail})
+    </insert>
+    <update id="updateAddressByAddressId" parameterType="com.neusoft.graduation.entity.Address">
+        UPDATE address
+        SET addressId = #{addressId},userId = #{userId},userName = #{userName},addressDetail = #{addressDetail}
+        WHERE  addressId = #{addressId}
+    </update>
+    <delete id="deleteAddressByAddressId" parameterType="int">
+        DELETE FROM address WHERE addressId=#{addressId}
+    </delete>
+    <delete id="deleteAddressByUserId" parameterType="int">
+        DELETE FROM address WHERE userId=#{userId}
+    </delete>
+    <delete id="deleteAddressByUserName" parameterType="String">
+        DELETE FROM address WHERE userName=#{userName}
+    </delete>
+</mapper>

@@ -1,19 +1,9 @@
 server:
   port: 8080
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://62.234.89.174/GraduationDesign?noAccessToProcedureBodies=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-#    username: tzy
-#    password: 899
+spring:
 
-#  jpa:
-#    hibernate:
-#      ddl-auto: create #ddl-auto:设为create表示每次都重新建表
-#    show-sql: true
-
-#  devtools:
-#    restart:
-#      enabled: true  #设置开启热部署
-#  freemarker:
-#    cache: false    #页面不加载缓存，修改即时生效
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效

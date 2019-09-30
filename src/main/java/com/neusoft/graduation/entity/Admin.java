@@ -14,6 +14,7 @@ public class Admin {
     private int roleId;//角色Id，与Role表相连
     private String phone;//电话--便于后期短信验证
     private double sal;//管理员工资--各级别管理员工资不同
+    private String createDate;//创建时间--为了后期计算工资
     private String remark1;//备注1
     private String remark2;//备注2
     private String remark3;//备注3
@@ -21,13 +22,14 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(int adminId, String adminName, String password, int roleId, String phone, double sal, String remark1, String remark2, String remark3) {
+    public Admin(int adminId, String adminName, String password, int roleId, String phone, double sal, String createDate, String remark1, String remark2, String remark3) {
         this.adminId = adminId;
         this.adminName = adminName;
         this.password = password;
         this.roleId = roleId;
         this.phone = phone;
         this.sal = sal;
+        this.createDate = createDate;
         this.remark1 = remark1;
         this.remark2 = remark2;
         this.remark3 = remark3;
@@ -83,6 +85,14 @@ public class Admin {
 
     public void setSal(double sal) {
         this.sal = sal;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public void setRemark1(String remark1) {

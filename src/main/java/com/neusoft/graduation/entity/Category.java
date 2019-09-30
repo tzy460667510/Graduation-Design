@@ -7,14 +7,14 @@ package com.neusoft.graduation.entity;
  * @Date 2019/9/22 11:42
  * Version 1.0
  **/
-public class category {
+public class Category {
     private int categoryId;//商品类别id
     private String categoryName;//商品类别名称
 
-    public category() {
+    public Category() {
     }
 
-    public category(int categoryId, String categoryName) {
+    public Category(int categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }

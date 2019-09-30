@@ -10,13 +10,13 @@ package com.neusoft.graduation.entity;
 public class Address {
     private int addressId;//地址Id
     private int userId;//用户id
-    private int userName;//用户姓名
+    private String userName;//用户姓名
     private String addressDetail;//用户详细地址
 
     public Address() {
     }
 
-    public Address(int addressId, int userId, int userName, String addressDetail) {
+    public Address(int addressId, int userId, String userName, String addressDetail) {
         this.addressId = addressId;
         this.userId = userId;
         this.userName = userName;
@@ -39,11 +39,11 @@ public class Address {
         this.userId = userId;
     }
 
-    public int getUserName() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(int userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 

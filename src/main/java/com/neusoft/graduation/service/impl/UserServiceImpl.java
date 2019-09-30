@@ -15,16 +15,43 @@ import java.util.List;
  * @Date 2019/9/23 11:16
  * Version 1.0
  **/
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    public List<User> findAll() {
-        return userDao.findAll();
+    @Override
+    public List<User> queryAllUser() {
+        return userDao.queryAllUser();
     }
 
-    public User findById(Long id) {
-        return userDao.findById(id);
+    @Override
+    public User queryUserByUserId(int id) {
+        return userDao.queryUserByUserId(id);
+    }
+
+    @Override
+    public User queryUserByUserName(String name) {
+        return userDao.queryUserByUserName(name);
+    }
+
+    @Override
+    public User queryUserByRealName(String name) {
+        return userDao.queryUserByRealName(name);
+    }
+
+    @Override
+    public int addUser(User user) {
+        return userDao.addUser(user);
+    }
+
+    @Override
+    public int updateUserByUserId(User user) {
+        return userDao.updateUserByUserId(user);
+    }
+
+    @Override
+    public int deleteUserByUserId(int id) {
+        return userDao.deleteUserByUserId(id);
     }
 }
