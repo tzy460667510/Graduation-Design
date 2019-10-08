@@ -27,8 +27,8 @@ public class AdminTest {
     @Test
     public void selectTest(){
         System.out.println(adminService.queryAllAdmin());
-        System.out.println(adminService.queryUserByAdminId(1));
-        System.out.println(adminService.queryUserByAdminName("Tzy"));
+        System.out.println(adminService.queryAdminByAdminId(1));
+        System.out.println(adminService.queryAdminByAdminName("Tzy"));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class AdminTest {
 
     @Test
     public void editTest(){
-        Admin admin = adminService.queryUserByAdminId(1);
+        Admin admin = adminService.queryAdminByAdminId(1);
         System.out.println(admin);
         admin.setAdminName("Tzy");
         admin.setPassword("899");
@@ -60,7 +60,7 @@ public class AdminTest {
 
     @Test
     public void loginTest(){
-        Admin tzy = adminService.queryUserByAdminName("Tzy");
+        Admin tzy = adminService.queryAdminByAdminName("Tzy");
 //        Admin tzy = adminService.AdminLogin("Tzy", "899");
         System.out.println(tzy);
     }

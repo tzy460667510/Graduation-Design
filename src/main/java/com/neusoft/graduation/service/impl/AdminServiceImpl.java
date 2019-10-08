@@ -26,13 +26,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin queryUserByAdminId(int id) {
-        return adminDao.queryUserByAdminId(id);
+    public Admin queryAdminByAdminId(int id) {
+        return adminDao.queryAdminByAdminId(id);
     }
 
     @Override
-    public Admin queryUserByAdminName(String name) {
-        return adminDao.queryUserByAdminName(name);
+    public Admin queryAdminByAdminName(String name) {
+        return adminDao.queryAdminByAdminName(name);
     }
 
     @Override

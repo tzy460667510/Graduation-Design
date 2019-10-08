@@ -27,10 +27,7 @@ public class LoginController {
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session) {
-        System.out.println(username+","+password);
-        Admin admin = adminService.queryUserByAdminName(username);
-//        Admin admin = adminService.AdminLogin(username, password);
-        System.out.println(admin);
+        Admin admin = adminService.queryAdminByAdminName(username);
         try {
             if (!StringUtils.isEmpty(username) && admin.getPassword().equals(password)) {
                 //登录成功,防止表单重复提交，可以重定向到主页

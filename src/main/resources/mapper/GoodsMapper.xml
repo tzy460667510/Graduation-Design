@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.graduation.dao.GoodsDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.Goods">
+        <result column="goodsId" property="goodsId"/>
+        <result column="goodsName" property="goodsName"/>
+        <result column="categoryId" property="categoryId"/>
+        <result column="details" property="details"/>
+        <result column="originalPrice" property="originalPrice"/>
+        <result column="sellPrice" property="sellPrice"/>
+        <result column="inventory" property="inventory"/>
+        <result column="createDate" property="createDate"/>
+        <result column="categoryName" property="categoryName"/>
+    </resultMap>
+    <select id="queryAllGoods" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId;
+    </select>
+    <select id="queryGoodsByGoodsId" resultMap="BaseResultMap">
+        SELECT goodsId,goodsName,categoryId,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods
+        WHERE goodsId = #{goodsId};
+    </select>
+    <select id="queryGoodsByGoodsName" resultMap="BaseResultMap">
+        SELECT goodsId,goodsName,categoryId,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods
+        WHERE goodsName = #{goodsName};
+    </select>
+    <select id="queryGoodsByCategoryName" resultMap="BaseResultMap">
+        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        AND category.categoryName=#{categoryName};
+    </select>
+    <select id="queryGoodsByLike" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        AND goodsName LIKE concat(concat('%',#{goodsName}),'%');
+    </select>
+    <insert id="addGoods" parameterType="com.neusoft.graduation.entity.Goods">
+        INSERT INTO goods(goodsId,goodsName,categoryId,details,originalPrice,sellPrice,inventory,createDate)
+        VALUE (#{goodsId},#{goodsName},#{categoryId},#{details},#{originalPrice},#{sellPrice},#{inventory},now())
+    </insert>
+    <update id="updateGoodsByGoodsId" parameterType="com.neusoft.graduation.entity.Goods">
+        UPDATE goods
+        SET goodsId = #{goodsId},goodsName = #{goodsName},categoryId = #{categoryId},details = #{details},
+        originalPrice = #{originalPrice},sellPrice = #{sellPrice},inventory = #{inventory},createDate = #{createDate}
+        WHERE  goodsId = #{goodsId}
+    </update>
+    <delete id="deleteGoodsByGoodsId" parameterType="int">
+        DELETE FROM goods WHERE goodsId=#{goodsId}
+    </delete>
+</mapper>

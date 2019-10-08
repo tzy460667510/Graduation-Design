@@ -19,19 +19,19 @@
         SELECT adminId,adminName,password,roleId,phone,sal,createDate,remark1,remark2,remark3
         FROM admin;
     </select>
-    <select id="queryUserByAdminId" resultMap="BaseResultMap">
+    <select id="queryAdminByAdminId" resultMap="BaseResultMap">
         SELECT adminId,adminName,password,roleId,phone,sal,createDate,remark1,remark2,remark3
         FROM admin
         WHERE adminId = #{adminId};
     </select>
-    <select id="queryUserByAdminName" resultMap="BaseResultMap">
+    <select id="queryAdminByAdminName" resultMap="BaseResultMap">
         SELECT adminId,adminName,password,roleId,phone,sal,createDate,remark1,remark2,remark3
         FROM admin
         WHERE adminName = #{adminName};
     </select>
     <insert id="addAdmin" parameterType="com.neusoft.graduation.entity.Admin">
         INSERT INTO admin(adminId,adminName,password,roleId,phone,sal,createDate)
-        VALUE (#{adminId},#{adminName},#{password},#{roleId},#{phone},#{sal},#{createDate})
+        VALUE (#{adminId},#{adminName},#{password},#{roleId},#{phone},#{sal},now())
     </insert>
     <update id="updateAdminByAdminId" parameterType="com.neusoft.graduation.entity.Admin">
         UPDATE admin

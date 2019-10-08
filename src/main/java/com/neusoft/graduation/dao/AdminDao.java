@@ -25,14 +25,14 @@ public interface AdminDao {
      * @param id
      * @return
      */
-    Admin queryUserByAdminId(int id);
+    Admin queryAdminByAdminId(int id);
 
     /**
      * 根据管理员姓名查询管理员
      * @param name
      * @return
      */
-    Admin queryUserByAdminName(String name);
+    Admin queryAdminByAdminName(String name);
 
     /**
      * 添加管理员

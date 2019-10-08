@@ -1,6 +1,5 @@
 package com.neusoft.graduation.component;
 
-import org.springframework.web.servlet.LocaleResolver;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 /**
- * @ClassName MyLocaleResolver
+ * @ClassName LocaleResolver
  * @Description TODO
  * @Author Alice丶Nakiri
  * @Date 2019/9/16 9:41
@@ -17,7 +16,7 @@ import java.util.Locale;
 /*
 可以在链接上携带区域信息
  */
-public class MyLocaleResolver implements LocaleResolver {
+public class LocaleResolver implements org.springframework.web.servlet.LocaleResolver {
     @Override
     public Locale resolveLocale(HttpServletRequest request) {
         String l = request.getParameter("l");
