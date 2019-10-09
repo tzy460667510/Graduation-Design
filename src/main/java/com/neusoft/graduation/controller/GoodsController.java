@@ -25,14 +25,14 @@ public class GoodsController {
     public String goodsList(Model model){
         List<Goods> goods = goodsService.queryAllGoods();
         model.addAttribute("goods",goods);
-        return "goods/list";
+        return "good/list";
     }
 
-    @GetMapping("/goodw")
+    @GetMapping("/good")
     public String toAddPage(Model model){
         List<Goods> goods = goodsService.queryAllGoods();
         model.addAttribute("goods",goods);
-        return "goods/add";
+        return "good/add";
     }
 
     @PostMapping("/good")
@@ -47,7 +47,7 @@ public class GoodsController {
         Goods goods = goodsService.queryGoodsByGoodsId(id);
         model.addAttribute("goods",goods);
         System.out.println("修改前的商品数据："+goods);
-        return "goods/add";
+        return "good/add";
     }
 
     @PutMapping("/good")

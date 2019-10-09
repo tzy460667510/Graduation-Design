@@ -50,54 +50,57 @@
 		<div class="container-fluid">
 			<div class="row">
 				<!--引入侧边栏-->
-				<div th:replace="commons/bar::#sidebar(activeUri='admins')"></div>
+				<div th:replace="commons/bar::#sidebar(activeUri='users')"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<!--需要区分是员工修改还是添加；-->
-					<form th:action="@{/admin}" method="post">
+					<form th:action="@{/user}" method="post">
 						<!--发送put请求修改员工数据-->
 						<!--
 						1、SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的）
 						2、页面创建一个post表单
 						3、创建一个input项，name="_method";值就是我们指定的请求方式
 						-->
-						<input type="hidden" name="_method" value="put" th:if="${admin!=null}"/>
-						<input type="hidden" name="adminId" th:if="${admin!=null}" th:value="${admin.adminId}">
+						<input type="hidden" name="_method" value="put" th:if="${user!=null}"/>
+						<input type="hidden" name="userId" th:if="${user!=null}" th:value="${user.userId}">
 						<div class="form-group">
-							<label>管理员名称</label>
-							<input name="adminName" type="text" class="form-control" placeholder="${admin.adminName}" th:value="${admin!=null}?${admin.adminName}">
+							<label>平台昵称</label>
+							<input name="userName" type="text" class="form-control" placeholder="#" th:value="${user!=null}?${user.userName}">
 						</div>
 						<div class="form-group">
-							<label>密码</label>
-							<input name="password" type="text" class="form-control" placeholder="${admin.password}" th:value="${admin!=null}?${admin.password}">
+							<label>真实姓名</label>
+							<input name="realName" type="text" class="form-control" placeholder="#" th:value="${user!=null}?${user.realName}">
+						</div>
+						<div class="form-group">
+							<label>地址</label>
+							<input name="address" type="text" class="form-control" placeholder="#" th:value="${user!=null}?${user.address}">
+						</div>
+						<div class="form-group">
+							<label>邮箱</label>
+							<input name="email" type="email" class="form-control" placeholder="#" th:value="${user!=null}?${user.email}">
 						</div>
 						<div class="form-group">
 							<label>电话</label>
-							<input name="phone" type="text" class="form-control" placeholder="${admin.phone}" th:value="${admin!=null}?${admin.phone}">
+							<input name="phone" type="text" class="form-control" placeholder="${user.phone}" th:value="${user!=null}?${user.phone}">
 						</div>
-						<div class="form-group">
-							<label>工资</label>
-							<input name="sal" type="text" class="form-control" placeholder="${admin.sal}" th:value="${admin!=null}?${admin.sal}">
-						</div>
-						<div class="form-group">
-							<label>管理员级别</label>
-							<br>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="gender" value="1"
-									   th:checked="${admin!=null}?${admin.roleId==0}">
-								<label class="form-check-label">超级管理员</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="gender" value="1"
-									   th:checked="${admin!=null}?${admin.roleId==1}">
-								<label class="form-check-label">二级管理员</label>
-							</div>
-							</div>
 <!--						<div class="form-group">-->
 <!--							<label>创建日期</label>-->
-<!--							<input name="createDate" readonly="true" type="text" class="form-control" placeholder="" th:value="${admin!=null}?${admin.createDate}">-->
+<!--							<input name="createDate" type="text" class="form-control" placeholder="${user.createDate}" th:value="${user!=null}?${user.createDate}">-->
 <!--						</div>-->
-						<button type="submit" class="btn btn-primary" th:text="${admin!=null}?'修改':'添加'">添加</button>
+<!--						<div class="form-group">-->
+<!--							<label>Gender</label><br/>-->
+<!--							<div class="form-check form-check-inline">-->
+<!--								<input class="form-check-input" type="radio" name="gender" value="1"-->
+<!--									   th:checked="${emp!=null}?${emp.gender==1}">-->
+<!--								<label class="form-check-label">男</label>-->
+<!--							</div>-->
+<!--							<div class="form-check form-check-inline">-->
+<!--								<input class="form-check-input" type="radio" name="gender" value="0"-->
+<!--									   th:checked="${emp!=null}?${emp.gender==0}">-->
+<!--								<label class="form-check-label">女</label>-->
+<!--							</div>-->
+<!--						</div>-->
+						<button type="submit" class="btn btn-primary" th:text="${user!=null}?'修改':'添加'">添加</button>
 					</form>
 				</main>
 			</div>

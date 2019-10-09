@@ -121,6 +121,7 @@ public class Goods {
         return "Goods{" +
                 "goodsId=" + goodsId +
                 ", goodsName='" + goodsName + '\'' +
+                ", categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
                 ", details='" + details + '\'' +
                 ", originalPrice=" + originalPrice +
