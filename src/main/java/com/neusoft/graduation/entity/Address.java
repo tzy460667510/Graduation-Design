@@ -54,4 +54,14 @@ public class Address {
     public void setAddressDetail(String addressDetail) {
         this.addressDetail = addressDetail;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "addressId=" + addressId +
+                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", addressDetail='" + addressDetail + '\'' +
+                '}';
+    }
 }

@@ -39,7 +39,7 @@ public interface GoodsDao {
      * @param name
      * @return
      */
-    Goods queryGoodsByCategoryName(String name);
+    List<Goods> queryGoodsByCategoryName(String name);
 
     /**
      * 根据商品名类别名模糊查询

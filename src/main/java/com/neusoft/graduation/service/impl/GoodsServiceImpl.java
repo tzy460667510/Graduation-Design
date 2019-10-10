@@ -36,7 +36,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Goods queryGoodsByCategoryName(String name) {
+    public List<Goods> queryGoodsByCategoryName(String name) {
         return goodsDao.queryGoodsByCategoryName(name);
     }
 

@@ -22,7 +22,9 @@ public class GoodsTest {
 
     @Test
     public void selectTest(){
-        System.out.println(goodsService.queryAllGoods().toString());
+//        System.out.println(goodsService.queryAllGoods().toString());
+        System.out.println(goodsService.queryGoodsByCategoryName("蔬菜类"));
     }
+
 
 }

@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+
+<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+
 <!--topbar-->
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">[[${session.loginUser}]]</a>
@@ -51,6 +56,7 @@
                     </svg>
                     商品管理
                 </a>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link active" th:href="@{/users}"

@@ -1,6 +1,8 @@
 package com.neusoft.graduation.controller;
 
+import com.neusoft.graduation.entity.Category;
 import com.neusoft.graduation.entity.Goods;
+import com.neusoft.graduation.service.CategoryService;
 import com.neusoft.graduation.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +22,53 @@ import java.util.List;
 public class GoodsController {
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/goods")
     public String goodsList(Model model){
         List<Goods> goods = goodsService.queryAllGoods();
         model.addAttribute("goods",goods);
+        List<Category> category = categoryService.queryAllCategory();
+        model.addAttribute("category",category);
         return "good/list";
+    }
+
+    @GetMapping("/categoryList/{categoryName}")
+    public String togoodsByCategoryNamePage(@PathVariable("categoryName") String name, Model model){
+        System.out.println(name);
+        List<Goods> goods = goodsService.queryGoodsByCategoryName(name);
+        List<Category> category = categoryService.queryAllCategory();
+//        System.out.println(category);
+        Category category1 = null;
+        for (int i = 0; i <category.size(); i++) {
+            if (category.get(i).getCategoryName().equals(name)){
+                category1 = category.get(i);
+                category.remove(i);
+            }
+        }
+//        System.out.println(category);
+//        System.out.println(category1);
+        model.addAttribute("goods",goods);
+        model.addAttribute("category1",category1);
+        model.addAttribute("category",category);
+        return "/good/categorylist";
+    }
+
+    @GetMapping("/goodsDetail/{goodsName}")
+    public String toDetailPage(@PathVariable("goodsName") String name, Model model){
+        System.out.println(name);
+        Goods goods = goodsService.queryGoodsByGoodsName(name);
+        System.out.println(goods);
+        model.addAttribute("goods",goods);
+        return "good/detail";
+    }
+
+    @GetMapping("/goodsDetail")
+    public String goodsDetail(@PathVariable("goodsName") String name, Model model){
+        Goods goods = goodsService.queryGoodsByGoodsName(name);
+        model.addAttribute("goods",goods);
+        return "good/detail";
     }
 
     @GetMapping("/good")

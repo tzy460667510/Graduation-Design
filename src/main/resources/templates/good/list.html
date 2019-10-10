@@ -16,7 +16,7 @@
 		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
-			
+
 			@-webkit-keyframes chartjs-render-animation {
 				from {
 					opacity: 0.99
@@ -25,7 +25,7 @@
 					opacity: 1
 				}
 			}
-			
+
 			@keyframes chartjs-render-animation {
 				from {
 					opacity: 0.99
@@ -34,7 +34,7 @@
 					opacity: 1
 				}
 			}
-			
+
 			.chartjs-render-monitor {
 				-webkit-animation: chartjs-render-animation 0.001s;
 				animation: chartjs-render-animation 0.001s;
@@ -60,18 +60,25 @@
 								<tr>
 									<th>Id</th>
 									<th>商品名称</th>
-									<th>类别</th>
-									<th>进价</th>
-									<th>售价</th>
-									<th>库存</th>
-									<th>创建日期</th>
+									<th>
+										<select name="category" th:field="*{category}" class="input-select" th:value="*{category}" onchange="location.href=this.value ">
+											<option value="">商品类别</option>
+												<option th:each="category:${category}" th:value="@{/categoryList/}+${category.categoryName}" th:text="${category.categoryName}">
+
+												</option>
+										</select>
+										</th>
+									<th><a href="#">进价</a></th>
+									<th><a href="#">售价</a></th>
+									<th><a href="#">库存</a></th>
+									<th><a href="#">创建日期</a></th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="good:${goods}">
 									<td th:text="${good.goodsId}"></td>
-									<td>[[${good.goodsName}]]</td>
+									<td><a th:href="@{/goodsDetail/}+${good.goodsName}">[[${good.goodsName}]]</a></td>
 									<td th:text="${good.categoryName}"></td>
 									<td th:text="${good.originalPrice}"></td>
 									<td th:text="${good.sellPrice}"></td>

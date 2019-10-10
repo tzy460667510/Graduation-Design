@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.graduation.dao.CategoryDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.Category">
+        <result column="categoryId" property="categoryId"/>
+        <result column="categoryName" property="categoryName"/>
+    </resultMap>
+    <select id="queryAllCategory" resultMap="BaseResultMap">
+        SELECT categoryId,categoryName
+        FROM category;
+    </select>
+</mapper>

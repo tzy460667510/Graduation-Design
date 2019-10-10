@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+<body>
+<!--引入抽取的topbar-->
+<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--引入侧边栏-->
+        <div th:replace="commons/bar::#sidebar(activeUri='goods')"></div>
+    </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <input name="goodsId" type="hidden" th:if="${goods!=null}" th:value="${goods.goodsId}">
+        <div class="form-group">
+            <label>商品名称</label>
+            <input name="goodsName" class="form-control" readonly="readonly"
+                   th:value="${goods!=null}?${goods.goodsName}">
+        </div>
+        <div class="form-group">
+            <label>商品类别</label>
+            <input name="categoryId" type="text" class="form-control" readonly="readonly"
+                   th:value="${goods!=null}?${goods.categoryId}">
+        </div>
+        <div class="form-group">
+            <label>商品详情</label>
+            <input name="details" type="text" class="form-control" readonly="readonly"
+                   th:value="${goods!=null}?${goods.details}">
+        </div>
+        <div class="form-group">
+            <label>商品进价</label>
+            <input name="originalPrice" type="text" class="form-control" readonly="readonly"
+                   th:value="${goods!=null}?${goods.originalPrice}">
+        </div>
+        <div class="form-group">
+            <label>商品售价</label>
+            <input name="sellPrice" type="text" class="form-control" readonly="readonly"
+                   th:value="${goods!=null}?${goods.sellPrice}">
+        </div>
+        <div class="form-group">
+            <label>库存</label>
+            <input name="inventory" type="text" class="form-control" readonly="readonly"
+                   th:value="${goods!=null}?${goods.inventory}">
+        </div>
+        <div class="form-group">
+            <label>创建日期</label>
+            <input name="createDate" type="text" class="form-control" readonly="readonly"
+                   th:value="${goods!=null}?${goods.createDate}">
+        </div>
+    </main>
+</div>
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"
+        th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+</body>
+</html>

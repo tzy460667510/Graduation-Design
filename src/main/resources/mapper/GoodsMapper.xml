@@ -48,7 +48,7 @@
     <update id="updateGoodsByGoodsId" parameterType="com.neusoft.graduation.entity.Goods">
         UPDATE goods
         SET goodsId = #{goodsId},goodsName = #{goodsName},categoryId = #{categoryId},details = #{details},
-        originalPrice = #{originalPrice},sellPrice = #{sellPrice},inventory = #{inventory},createDate = #{createDate}
+        originalPrice = #{originalPrice},sellPrice = #{sellPrice},inventory = #{inventory}
         WHERE  goodsId = #{goodsId}
     </update>
     <delete id="deleteGoodsByGoodsId" parameterType="int">

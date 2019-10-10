@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName UserController
@@ -33,6 +34,22 @@ public class UserController {
         return "user/list";
     }
 
+    @GetMapping("/userDetail/{userName}")
+    public String toDetailPage(@PathVariable("userName") String name, Model model){
+        System.out.println(name);
+        User user = userService.queryUserByUserName(name);
+        System.out.println(user);
+        model.addAttribute("user",user);
+        return "user/detail";
+    }
+
+    @GetMapping("/userDetail")
+    public String goodsDetail(@PathVariable("userName") String name, Model model){
+        User user = userService.queryUserByUserName(name);
+        model.addAttribute("user",user);
+        return "user/detail";
+    }
+
     //来到用户添加页面
     @GetMapping("/user")
     public String toAddPage(Model model){
@@ -44,12 +61,15 @@ public class UserController {
     //用户添加
     //SpringMVC自动将请求参数和入参对象的属性进行一一绑定：要求了请求参数的名字和javaBean入参的对象里面的属性名是一样的
     @PostMapping("/user")
-    public String addUser(User user){
-        //保存于用户
-        userService.addUser(user);
-        //redirect:重定向到一个地址 /代表当前项目路径
-        //forward:表示转发到一个地址
-        return "redirect:/users";
+    public String addUser(User user,Map<String,Object> map){
+        String userName = user.getUserName();
+        if (userService.queryUserByUserName(userName).getUserName().equals(userName)){
+            map.put("msg","用户名重复");
+            return "user/add";
+        }else{
+            userService.addUser(user);
+            return "redirect:/users";
+        }
     }
 
     //来到修改页面，查出当前用户，在页面回显

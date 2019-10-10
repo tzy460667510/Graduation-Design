@@ -1,7 +1,9 @@
 package com.neusoft.graduation.controller;
 
 import com.neusoft.graduation.entity.Address;
+import com.neusoft.graduation.entity.User;
 import com.neusoft.graduation.service.AddressService;
+import com.neusoft.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,8 @@ import java.util.List;
 public class AddressController {
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private UserService userService;
 
     //地址列表页面
     @GetMapping("/addresses")
@@ -59,6 +63,9 @@ public class AddressController {
     @PutMapping("/address")
     public String updateAdmin(Address address) {
         System.out.println("修改后的地址数据：" + address);
+        int userId = address.getUserId();
+        User user = userService.queryUserByUserId(userId);
+        address.setUserName(user.getUserName());
         addressService.updateAddressByAddressId(address);
         return "redirect:/addresses";
     }
