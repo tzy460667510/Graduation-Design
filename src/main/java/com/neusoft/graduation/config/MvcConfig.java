@@ -1,6 +1,7 @@
 package com.neusoft.graduation.config;
 
 import com.neusoft.graduation.component.LocaleResolver;
+import com.neusoft.graduation.component.LoginHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;

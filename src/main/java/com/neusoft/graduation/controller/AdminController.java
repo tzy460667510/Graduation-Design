@@ -30,7 +30,7 @@ public class AdminController {
     }
 
     //来到管理员添加页面
-    @GetMapping("/admin")
+    @GetMapping("/adminAdd")
     public String toAddPage(Model model) {
         List<Admin> admins = adminService.queryAllAdmin();
         System.out.println(admins);
@@ -39,7 +39,7 @@ public class AdminController {
     }
 
     //管理员添加
-    @PostMapping("/admin")
+    @PostMapping("/adminAdd")
     public String addAdmin(Admin admin) {
         System.out.println(admin);
         adminService.addAdmin(admin);
@@ -47,17 +47,17 @@ public class AdminController {
     }
 
     //来到修改页面，查出当前管理员信息，在页面回显
-    @GetMapping("/admin/{adminId}")
+    @GetMapping("/adminUpdate/{adminId}")
     public String toEditPage(@PathVariable("adminId") Integer id, Model model) {
         Admin admin = adminService.queryAdminByAdminId(id);
         model.addAttribute("admin", admin);
         System.out.println(admin);
         //回到修改页面(add是一个修改添加二合一的页面);
-        return "admin/add";
+        return "admin/update";
     }
 
     //管理员修改；需要提交adminId；
-    @PutMapping("/admin")
+    @PutMapping("/adminUpdate")
     public String updateAdmin(Admin admin) {
         System.out.println("修改的管理员数据：" + admin);
         adminService.updateAdminByAdminId(admin);

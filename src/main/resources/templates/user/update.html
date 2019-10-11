@@ -54,33 +54,35 @@
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<!--需要区分是员工修改还是添加；-->
-					<form th:action="@{/userAdd}" method="post">
+					<form th:action="@{/userUpdate}" th:method="PUT">
+						<input type="hidden" name="method" value="PUT">
+                        <input type="hidden" name="userId" th:if="${user!=null}" th:value="${user.userId}">
 						<div class="form-group">
 							<label>平台昵称</label>
-							<input name="userName" type="text" class="form-control" placeholder="请输入平台昵称">
+							<input name="userName" type="text" class="form-control" placeholder="请输入平台昵称" th:value="${user!=null}?${user.userName}">
 						</div>
                         <div class="form-group">
                             <label>密码</label>
-                            <input name="password" type="text" class="form-control" placeholder="请输入密码">
+                            <input name="password" type="text" class="form-control" placeholder="请输入密码" th:value="${user!=null}?${user.password}">
                         </div>
 						<div class="form-group">
 							<label>真实姓名</label>
-							<input name="realName" type="text" class="form-control" placeholder="请输入真实姓名">
+							<input name="realName" type="text" class="form-control" placeholder="请输入真实姓名" th:value="${user!=null}?${user.realName}">
 						</div>
 						<div class="form-group">
 							<label>地址</label>
-							<input name="address" type="text" class="form-control" placeholder="请输入地址">
+							<input name="address" type="text" class="form-control" placeholder="请输入地址" th:value="${user!=null}?${user.address}">
 						</div>
 						<div class="form-group">
 							<label>邮箱</label>
-							<input name="email" type="email" class="form-control" placeholder="请输入邮箱">
+							<input name="email" type="email" class="form-control" placeholder="请输入邮箱" th:value="${user!=null}?${user.email}">
 						</div>
 						<div class="form-group">
 							<label>电话</label>
-							<input name="phone" type="text" class="form-control" placeholder="请输入电话">
+							<input name="phone" type="text" class="form-control" placeholder="请输入电话" th:value="${user!=null}?${user.phone}">
 						</div>
 <!--                        <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>-->
-						<button type="submit" class="btn btn-primary">添加</button>
+						<button type="submit" class="btn btn-primary">修改</button>
 					</form>
 				</main>
 			</div>

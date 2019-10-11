@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName GoodsController
@@ -27,6 +28,7 @@ public class GoodsController {
 
     @GetMapping("/goods")
     public String goodsList(Model model){
+        System.out.println("进入商品列表页");
         List<Goods> goods = goodsService.queryAllGoods();
         model.addAttribute("goods",goods);
         List<Category> category = categoryService.queryAllCategory();
@@ -55,6 +57,60 @@ public class GoodsController {
         return "/good/categorylist";
     }
 
+    @GetMapping("/originalPriceByGoods")
+    public String originalPriceByGoods(Model model){
+        System.out.println("进入按进价升序界面了");
+        List<Goods> goods = goodsService.queryAllGoods();
+        model.addAttribute("goods",goods);
+        List<Category> category = categoryService.queryAllCategory();
+        model.addAttribute("category",category);
+        return "/good/list";
+    }
+
+    @GetMapping("/originalPriceByUp")
+    public String originalPriceByUp(Model model, Map<String,Object> map){
+        System.out.println("进入按进价升序界面了");
+        List<Goods> goods = goodsService.queryAllGoodsByOriginalPriceAsc();
+        model.addAttribute("goods",goods);
+        List<Category> category = categoryService.queryAllCategory();
+        model.addAttribute("category",category);
+        map.put("msg","升序");
+        return "/good/list";
+    }
+
+    @GetMapping("/originalPriceByDown")
+    public String originalPriceByDown(Model model,Map<String,Object> map){
+        System.out.println("进入按进价降序界面了");
+        List<Goods> goods = goodsService.queryAllGoodsByOriginalPriceDesc();
+        model.addAttribute("goods",goods);
+        List<Category> category = categoryService.queryAllCategory();
+        model.addAttribute("category",category);
+        map.put("msg","降序");
+        return "/good/list";
+    }
+
+    @GetMapping("/sellPriceByUp")
+    public String sellPriceByUp(Model model, Map<String,Object> map){
+        System.out.println("进入按售价升序界面了");
+        List<Goods> goods = goodsService.queryAllGoodsBysellPriceAsc();
+        model.addAttribute("goods",goods);
+        List<Category> category = categoryService.queryAllCategory();
+        model.addAttribute("category",category);
+        map.put("msg","升序");
+        return "/good/list";
+    }
+
+    @GetMapping("/sellPriceByDown")
+    public String sellPriceByDown(Model model,Map<String,Object> map){
+        System.out.println("进入按售价升序界面了");
+        List<Goods> goods = goodsService.queryAllGoodsBysellPriceDesc();
+        model.addAttribute("goods",goods);
+        List<Category> category = categoryService.queryAllCategory();
+        model.addAttribute("category",category);
+        map.put("msg","降序");
+        return "/good/list";
+    }
+
     @GetMapping("/goodsDetail/{goodsName}")
     public String toDetailPage(@PathVariable("goodsName") String name, Model model){
         System.out.println(name);
@@ -71,29 +127,29 @@ public class GoodsController {
         return "good/detail";
     }
 
-    @GetMapping("/good")
+    @GetMapping("/goodsAdd")
     public String toAddPage(Model model){
         List<Goods> goods = goodsService.queryAllGoods();
         model.addAttribute("goods",goods);
         return "good/add";
     }
 
-    @PostMapping("/good")
+    @PostMapping("/goodsAdd")
     public String addGoods(Goods goods){
         System.out.println(goods);
         goodsService.addGoods(goods);
         return "redirect:/goods";
     }
 
-    @GetMapping("/good/{goodsId}")
+    @GetMapping("/goodsUpdate/{goodsId}")
     public String toEditPage(@PathVariable("goodsId") Integer id, Model model){
         Goods goods = goodsService.queryGoodsByGoodsId(id);
         model.addAttribute("goods",goods);
         System.out.println("修改前的商品数据："+goods);
-        return "good/add";
+        return "good/update";
     }
 
-    @PutMapping("/good")
+    @PutMapping("/goodsUpdate")
     public String updateGoods(Goods goods){
         System.out.println("修改后的商品数据："+goods);
         goodsService.updateGoodsByGoodsId(goods);

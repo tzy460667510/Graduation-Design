@@ -19,6 +19,30 @@ public interface GoodsService {
     List<Goods> queryAllGoods();
 
     /**
+     * 进价升序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByOriginalPriceAsc();
+
+    /**
+     * 进价降序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByOriginalPriceDesc();
+
+    /**
+     * 售价升序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsBysellPriceAsc();
+
+    /**
+     * 售价降序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsBysellPriceDesc();
+
+    /**
      * 根据商品id查询商品信息
      * @param id
      * @return

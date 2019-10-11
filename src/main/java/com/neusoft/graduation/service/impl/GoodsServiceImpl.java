@@ -16,13 +16,33 @@ import java.util.List;
  * Version 1.0
  **/
 @Service
-public class GoodsServiceImpl implements GoodsService {
+public class GoodsServiceImpl implements GoodsService{
     @Autowired
     private GoodsDao goodsDao;
 
     @Override
     public List<Goods> queryAllGoods() {
         return goodsDao.queryAllGoods();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsByOriginalPriceAsc() {
+        return goodsDao.queryAllGoodsByOriginalPriceAsc();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsByOriginalPriceDesc() {
+        return goodsDao.queryAllGoodsByOriginalPriceDesc();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsBysellPriceAsc() {
+        return goodsDao.queryAllGoodsBysellPriceAsc();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsBysellPriceDesc() {
+        return goodsDao.queryAllGoodsBysellPriceDesc();
     }
 
     @Override

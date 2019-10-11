@@ -34,7 +34,7 @@
     </insert>
     <update id="updateAddressByAddressId" parameterType="com.neusoft.graduation.entity.Address">
         UPDATE address
-        SET addressId = #{addressId},userId = #{userId},userName = #{userName},addressDetail = #{addressDetail}
+        SET addressDetail = #{addressDetail}
         WHERE  addressId = #{addressId}
     </update>
     <delete id="deleteAddressByAddressId" parameterType="int">

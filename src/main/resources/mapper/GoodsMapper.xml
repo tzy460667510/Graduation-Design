@@ -19,6 +19,30 @@
         FROM goods,category
         WHERE goods.categoryId=category.categoryId;
     </select>
+    <select id="queryAllGoodsByOriginalPriceAsc" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.originalPrice ASC;
+    </select>
+    <select id="queryAllGoodsByOriginalPriceDesc" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.originalPrice DESC;
+    </select>
+    <select id="queryAllGoodsBysellPriceAsc" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.sellPrice ASC;
+    </select>
+    <select id="queryAllGoodsBysellPriceDesc" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.sellPrice DESC;
+    </select>
     <select id="queryGoodsByGoodsId" resultMap="BaseResultMap">
         SELECT goodsId,goodsName,categoryId,details,originalPrice,sellPrice,inventory,createDate
         FROM goods
