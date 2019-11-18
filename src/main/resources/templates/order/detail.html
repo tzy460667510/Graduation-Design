@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+<body>
+<!--引入抽取的topbar-->
+<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--引入侧边栏-->
+        <div th:replace="commons/bar::#sidebar(activeUri='orders')"></div>
+    </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="form-group">
+            <label>平台昵称</label>
+            <input name="userName" type="text" class="form-control" readonly="readonly"
+                   th:value="${order!=null}?${order.userName}">
+            <hr>
+        </div>
+        <div class="form-group" th:each="orders:${orders}">
+            <input name="orderId" type="hidden" th:if="${orders!=null}" th:value="${orders.orderId}">
+            <label>商品名称</label>
+            <input name="goodsName" type="text" class="form-control" readonly="readonly"
+                   th:value="${orders!=null}?${orders.goodsName}">
+            <label>商品图片</label>
+            <input name="goodsName" type="text" class="form-control" readonly="readonly"
+                   th:value="${orders!=null}?${orders.orderImg}">
+            <label>购买数量</label>
+            <input name="goodsCount" type="text" class="form-control" readonly="readonly"
+                   th:value="${orders!=null}?${orders.goodsCount}">
+            <label>购买总价</label>
+            <input name="orderTotal" type="text" class="form-control" readonly="readonly"
+                   th:value="${orders!=null}?${orders.orderTotal}">
+            <label>收货姓名</label>
+            <input name="realName" type="text" class="form-control" readonly="readonly"
+                   th:value="${orders!=null}?${orders.realName}">
+            <label>地址</label>
+            <input name="addressDetail" type="email" class="form-control" readonly="readonly"
+                   th:value="${orders!=null}?${orders.addressDetail}">
+            <label>电话</label>
+            <input name="phone" type="text" class="form-control" readonly="readonly"
+                   th:value="${orders!=null}?${orders.phone}">
+            <hr>
+        </div>
+    </main>
+</div>
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"
+        th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+</body>
+</html>

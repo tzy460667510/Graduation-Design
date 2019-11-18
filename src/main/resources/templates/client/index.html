@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>小菜菜网</title>
+    <link th:href="@{/asserts/css/global.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/layout.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/template.css}" rel="stylesheet"/>
+</head>
+<body>
+<!--头部-->
+<header id="header">
+    <div class="header_top">
+        <div class="header_top_left">[[${session.loginUser}]]您好！欢迎光临小菜菜网
+            <a th:if="${session.loginUser} eq null" th:href="@{/client/tologin}" target="_parent">登录</a>
+            <a th:if="${session.loginUser} eq null" th:href="@{/client/toregister}" target="_parent">免费注册</a>
+        </div>
+        <div class="header_top_right">
+            <ul>
+                <li><a href="#" target="_self">客户服务</a></li>
+                <li>|</li>
+                <li id="menu"><a href="#" target="_self">新手入门</a> <img src="images/arrow_down.gif" alt="arrow"/>
+                    <div id="dd_menu_top_down">
+                        <a href="#" target="_self">购物保障</a><br/>
+                        <a href="#" target="_self">购物流程</a><br/>
+                        <a href="#" target="_self">会员介绍</a><br/>
+                        <a href="#" target="_self">常见问题</a><br/>
+                    </div>
+                </li>
+                <li>|</li>
+                <li><a href="#" target="_self">礼品卡</a></li>
+                <li>|</li>
+                <li><a href="#" target="_self">我的订单</a></li>
+                <li>|</li>
+                <li><a href="#" target="_self">我的账户</a></li>
+                <li>|</li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">购物车</a></li>
+                <li><a th:href="@{/ShoppingDetail/}+${session.loginUser}" target="_parent">购物车</a></li>
+                <li><img src="images/header_shop.gif" alt="shopping"/></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="header_middle">
+    <div class="logo"><img th:src="@{/asserts/img/sitelogo.jpg}" alt="logo"/></div>
+    <div class="search">
+        <form th:action="@{/client/searchGoods/}+${session.loginUser}">
+            <input name="goodsSearch" type="text" placeholder="请输入搜索关键字"/>
+            <input type="submit" style="background: #3abbeb"  value="搜索">
+        </form>
+    </div>
+</div>
+<nav id="nav">
+    <ul>
+        <li><a href="#"> 全部商品分类</a></li>
+        <li><a href="#"> 首页</a></li>
+        <li><a href="#"> 图书</a></li>
+        <li><a href="#"> 图书</a></li>
+        <li><a href="#"> 图书</a></li>
+    </ul>
+</nav>
+<!--网站中间内容开始-->
+<section id="main">
+
+    <div id="content">
+        <!--轮换显示的横幅广告图片-->
+        <div class="scroll">
+            <ul id="scroll_img">
+                <li><img th:src="@{/asserts/img/scroll-01.jpg}"/></li>
+                <li><img th:src="@{/asserts/img/scroll-02.jpg}"/></li>
+                <li><img th:src="@{/asserts/img/scroll-03.jpg}"/></li>
+                <li><img th:src="@{/asserts/img/scroll-04.jpg}"/></li>
+            </ul>
+            <ul id="scroll_number">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </div>
+    </div>
+
+    <!--左侧菜单开始-->
+    <div id="catList">
+        <!--图书商品分类开始-->
+        <div class="book_sort">
+            <div class="book_sort_bg"><img th:src="@{/asserts/img/dd_book_cate_icon.gif}"/> 商品分类</div>
+            <div th:each="category:${categories}">
+                <div class="book_cate">
+                    <a th:href="@{/client/toproductlistbycategory/}+${category.categoryName}">[[${category.categoryName}]]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="silder">
+        <section class="book">
+            <h1>肉禽蛋类</h1>
+            <ul>
+                <li th:each="good:${goods1}"><a th:href="@{/clientGoodsDetailByGoodsName/}+${good.goodsName}"><img th:src="@{${good.goodsImg}}" alt=""></a></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>水产类</h1>
+            <ul>
+                <li th:each="good:${goods2}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>蔬菜类</h1>
+            <ul>
+                <li th:each="good:${goods3}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>豆类</h1>
+            <ul>
+                <li th:each="good:${goods4}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>五谷杂粮类 </h1>
+            <ul>
+                <li th:each="good:${goods5}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>果品类</h1>
+            <ul>
+                <li th:each="good:${goods6}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>药食两用类</h1>
+            <ul>
+                <li th:each="good:${goods7}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>调味品类</h1>
+            <ul>
+                <li th:each="good:${goods8}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+        <section class="book">
+            <h1>酒饮类</h1>
+            <ul>
+                <li th:each="good:${goods9}"><img th:src="@{${good.goodsImg}}" alt=""></li>
+            </ul>
+        </section>
+    </section>
+    <!--右侧部分结束-->
+    <section class="tab">
+        <ol>
+            <li>生鲜上新榜</li>
+            <li>生鲜畅销榜</li>
+        </ol>
+        <ul>
+            <li th:each="good:${goods10}">
+                <p><a th:href="@{/clientGoodsDetailByGoodsName/}+${good.goodsName}">[[${good.goodsName}]]</a></p>
+                    <dl>
+                        <dt><a th:href="@{/clientGoodsDetailByGoodsName/}+${good.goodsName}"><img th:src="@{${good.goodsImg}}"></a></dt>
+                        <dd><h1><a th:href="@{/clientGoodsDetailByGoodsName/}+${good.goodsName}">[[${good.goodsName}]]</h1>[[${good.details}]]</a></dd>
+                    </dl>
+            </li>
+        </ul>
+        <ul>
+            <li><span>9</span>
+                <p>好妈妈胜过好老师</p>
+                <dl>
+                    <dt><img src="images/newBook09.jpg"></dt>
+                    <dd><h1>好妈妈胜过好老师</h1>好妈妈胜过好老师2：自由的孩子最自觉</dd>
+                </dl>
+            </li>
+            <li><span>10</span>
+                <p>我们始终独自行走在这个世界</p>
+                <dl>
+                    <dt><img src="images/newBook10.jpg"></dt>
+                    <dd><h1>我们始终独自行走在这个世界</h1>十点读书、二更食堂、清华南都等各大微信阅读平台，简书、豆瓣千万读者口碑相传作品。</dd>
+                </dl>
+            </li>
+        </ul>
+    </section>
+</section>
+<!--网站版权部分开始-->
+<footer id="footer">
+    <div class="footer_top"><a href="#" target="_parent" class="footer_dull_red">正版保障</a> | <a href="#" target="_parent"
+                                                                                               class="footer_dull_red">满额免运</a>
+        | <a href="#" target="_parent" class="footer_dull_red">货到付款</a> | <a href="#" target="_parent"
+                                                                             class="footer_dull_red">品种最全</a> | <a
+                href="#" target="_parent" class="footer_dull_red">免费退换</a></div>
+    <div class="footer_end">Copyright (C) 蔚蓝网 2006-2016, All Rights Reserved <img src="images/validate.gif" alt="版权"
+                                                                                  style="vertical-align:middle;"/>
+        京ICP证100488号 出版物经营许可证 京批100160号
+    </div>
+</footer>
+<script th:src="@{/asserts/js/jquery-1.12.4.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        //当点击新手入门实现卷帘菜单效果。
+        $("#menu").hover(
+            function () {
+                $("#dd_menu_top_down").slideDown("slow");
+            },
+            function () {
+                $("#dd_menu_top_down").slideUp("slow");
+            }
+        );
+        //实现广告图书图片的定位效果，当点击关闭时，关闭该广告。
+        $(window).scroll(function () {
+            var sc = $(this).scrollTop() + 50;
+            $("#right").css("top", sc);
+        });
+        $("#right").find("a").click(function () {
+            $("#right").hide();
+        });
+
+        //当鼠标悬停在某个商品图片时，该图片放大，移出还原为原始大小。
+        /*
+        $W = $(".book").width();
+        $h = $(".book").height();
+        $w2 = $w + 20;
+        $h2 = $h + 20;
+        //$(this).stop().animate({height:$h2,width:$w2},500);
+        //$(this).stop().animate({height:$h,width:$w},500);
+        $(".book").hover(
+            function(){
+                $(this).stop().animate({height:$h2,width:$w2},500);
+            },
+            function(){
+                $(this).stop().animate({height:$h,width:$w},500);
+            }
+        );
+        */
+        //animate() 方法执行 CSS 属性集的自定义动画。
+        $(".book img").hover(
+            function () {
+                $(this).animate({width: "105%"});
+            },
+            function () {
+                $(this).animate({width: "100%"});
+            }
+        );
+
+        //轮换图片
+        function change_Img() {
+            var index = 0;
+            var stop = false;
+            var $li = $("#content").find("#scroll_img").children("li");
+            var $page = $("#content").find("#scroll_number").children("li");
+            $page.eq(index).addClass("scroll_number_over").stop(true, true).siblings().removeClass("scroll_number_over");
+            $page.mouseover(function () {
+                stop = true;
+                index = $page.index($(this));
+                $li.eq(index).stop(true, true).fadeIn().siblings().fadeOut();
+                $(this).addClass("scroll_number_over").stop(true, true).siblings().removeClass("scroll_number_over");
+            }).mouseout(function () {
+                stop = false;
+            });
+            setInterval(function () {
+                if (stop) return;
+                index++;
+                if (index >= $li.length) {
+                    index = 0;
+                }
+                $li.eq(index).stop(true, true).fadeIn().siblings().fadeOut();
+                $page.eq(index).addClass("scroll_number_over").stop(true, true).siblings().removeClass("scroll_number_over");
+            }, 5000);
+        }
+
+        change_Img();
+        //选卡特效：鼠标移入某个标题，显示隐藏的具体图书信息。
+        //$(".tab ol li").hover(
+        //function(){
+        //$(this).addClass("tab");
+        //$(this).siblings("li").removeClass("tab");
+        //$(".tab ul li p").hide();
+        //$(".tab ul li ").eq($(this).index()).show();
+        //$(this).css({"background":"white","border":"1px solid #cccccc"});
+        //$(this).siblings("li").css({"background":"#cccccc","border":"1px solid #cccccc"});
+        //},
+        //function(){
+        //$(this).addClass("tab");
+        //$(this).siblings("li").removeClass("tab");
+        //$(this).css("background","#cccccc");
+        //$(this).siblings("li").css("background","white");
+        //}
+        //);
+
+        $(".tab ol li").mouseover(function () {
+            $(this).css({"background": "#ffffff", "border": "none"});
+            $(this).siblings("li").css({"background": "#efefef", "border-bottom": "1px solid #cccccc"});
+            //$(".tab ol li:eq(1)").css("float","right");
+            $(".tab ul").hide();
+            $(".tab ul").eq($(this).index()).show();
+        });
+
+        $(".tab ul p").mouseover(function () {
+            $(this).hide();
+            $(this).parent().children("dl").show();
+            $(this).parent().siblings().children("p").show();
+            $(this).parent().siblings().children("dl").hide();
+        });
+    });
+
+</script>
+</body>
+</html>

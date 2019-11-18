@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>蔚蓝网注册页面</title>
+    <link th:href="@{/asserts/css/global.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/layout.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/template.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<header class="header_middle">
+    <div id="register_header">
+        <div class="register_header_left">
+            <img th:src="@{/aseerts/img/logo.png}" alt="logo"/>
+        </div>
+        <div class="register_header_right">
+            <a href="index.html" class="blue">首页</a> |
+            <a href="product.html" class="blue">商品展示页</a> |
+            <a href="shopping.html" class="blue">购物车</a> |
+            <a href="login.html" class="blue">登录</a>
+        </div>
+    </div>
+</header>
+<section id="main">
+    <div class="register_content">
+        <div class="register_mid_bg">用户注册</div>
+        <div class="register_message">
+            <form action="/client/user/register" method="post" id="myform">
+                <dl class="register_row">
+                    <dt>平台昵称：</dt>
+                    <dd><input name="userName" id="email" type="text" required="required" class="register_input"/></dd>
+                </dl>
+                <dl class="register_row">
+                    <dt>设定密码：</dt>
+                    <dd><input id="password" type="password" class="register_input" required="required"
+                               pattern="[a-zA-Z0-9]{6,20}"/></dd>
+                </dl>
+                <dl class="register_row">
+                    <dt>再输入一次密码：</dt>
+                    <dd><input id="repwd" type="password" class="register_input"/></dd>
+                </dl>
+                <dl class="register_row">
+                    <dt>真实姓名</dt>
+                    <dd><input name="realName" type="text" class="register_input" required="required"
+                               pattern="[a-zA-Z0-9]{4,20}"/></dd>
+                </dl>
+                <dl class="register_row">
+                    <dt>邮箱：</dt>
+                    <dd><input name="email" type="email" class="register_input" required="required"/></dd>
+                </dl>
+                <dl class="register_row">
+                    <dt>电话：</dt>
+                    <dd><input name="phone" type="text" class="register_input" required="required"
+                               pattern="[a-zA-Z0-9]{4,20}"/></dd>
+                </dl>
+
+                <dl class="register_row">
+                    <dt>所在地区：</dt>
+                    <dd>
+                        <select name="address" id="city" style="width:130px;">
+                            <option>请选择所在地区</option>
+                            <option>鼓楼区</option>
+                            <option>玄武区</option>
+                            <option>建邺区</option>
+                            <option>栖霞区</option>
+                            <option>雨花台区</option>
+                            <option>浦口区</option>
+                            <option>六合区</option>
+                            <option>江宁区</option>
+                            <option>溧水区</option>
+                            <option>高淳区</option>
+                        </select>
+                    </dd>
+                </dl>
+                <div class="registerBtn"><input id="registerBtn" type="image" th:src="@{asserts/img/register_btn_out.gif}"/></div>
+            </form>
+        </div>
+    </div>
+</section>
+<!--网站版权部分开始-->
+<footer id="footer">
+    <div class="footer_top"><a href="#" target="_parent" class="footer_dull_red">正版保障</a> | <a href="#" target="_parent"
+                                                                                               class="footer_dull_red">满额免运</a>
+        | <a href="#" target="_parent" class="footer_dull_red">货到付款</a> | <a href="#" target="_parent"
+                                                                             class="footer_dull_red">品种最全</a> | <a
+                href="#" target="_parent" class="footer_dull_red">免费退换</a></div>
+    <div class="footer_end">Copyright (C) 蔚蓝网 2006-2016, All Rights Reserved <img src="images/validate.gif" alt="版权"
+                                                                                  style="vertical-align:middle;"/>
+        京ICP证100488号 出版物经营许可证 京批100160号
+    </div>
+</footer>
+<script th:src="@{/asserts/js/jquery-1.12.4.js}"></script>
+<script th:src="@{/asserts/js/register.js}"></script>
+</body>
+</html>

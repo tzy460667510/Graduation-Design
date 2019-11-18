@@ -53,37 +53,37 @@
 				<div th:replace="commons/bar::#sidebar(activeUri='admins')"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<!--需要区分是员工修改还是添加；-->
 					<form th:action="@{/adminAdd}" method="post">
 						<div class="form-group">
 							<label>管理员名称</label>
-							<input name="adminName" type="text" class="form-control" placeholder="${admin.adminName}" th:value="${admin!=null}?${admin.adminName}">
+							<p style="color: red" th:text="${msg1}" th:if="${not #strings.isEmpty(msg1)}"></p>
+							<p style="color: red" th:text="${msg2}" th:if="${not #strings.isEmpty(msg2)}"></p>
+							<input name="adminName" type="text" class="form-control" placeholder="请输入管理员名称">
 						</div>
 						<div class="form-group">
 							<label>密码</label>
-							<input name="password" type="text" class="form-control" placeholder="${admin.password}" th:value="${admin!=null}?${admin.password}">
+							<p style="color: red" th:text="${msg3}" th:if="${not #strings.isEmpty(msg3)}"></p>
+							<input name="password" type="text" class="form-control" placeholder="请输入密码">
 						</div>
 						<div class="form-group">
 							<label>电话</label>
-							<input name="phone" type="text" class="form-control" placeholder="${admin.phone}" th:value="${admin!=null}?${admin.phone}">
+							<p style="color: red" th:text="${msg4}" th:if="${not #strings.isEmpty(msg4)}"></p>
+							<input name="phone" type="text" class="form-control" placeholder="请输入管理员电话">
 						</div>
 						<div class="form-group">
 							<label>工资</label>
-							<input name="sal" type="text" class="form-control" placeholder="${admin.sal}" th:value="${admin!=null}?${admin.sal}">
+							<p style="color: red" th:text="${msg5}" th:if="${not #strings.isEmpty(msg5)}"></p>
+							<input name="sal" type="text" class="form-control" th:value="500">
 						</div>
 						<div class="form-group">
 							<label>管理员级别</label>
 							<br>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="gender" value="1"
-									   th:checked="${admin!=null}?${admin.roleId==0}">
-								<label class="form-check-label">超级管理员</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="gender" value="1"
-									   th:checked="${admin!=null}?${admin.roleId==1}">
-								<label class="form-check-label">二级管理员</label>
-							</div>
+							<p style="color: red" th:text="${msg6}" th:if="${not #strings.isEmpty(msg6)}"></p>
+							<select name="roleName" class="form-control">
+                                <option th:selected="${admin!=null}">请选择管理员级别</option>
+								<option th:selected="${admin!=null}" th:each="role:${roles}" th:text="${role.roleName}"></option>
+								<option th:selected="${admin!=null}" th:each="role:${rolex}" th:text="${role.roleName}"></option>
+							</select>
 							</div>
 						<button type="submit" class="btn btn-primary">添加</button>
 					</form>

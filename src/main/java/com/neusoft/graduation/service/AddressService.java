@@ -26,15 +26,17 @@ public interface AddressService {
 
     /**
      * 根据用户id查询地址
+     * @param id
      * @return
      */
-    Address queryAddressByUserId(int id);
+    List<Address> queryAddressByUserId(int id);
 
     /**
      * 根据用户名称查询地址
+     * @param name
      * @return
      */
-    Address queryAddressByUserName(String name);
+    List<Address> queryAddressByUserName(String name);
 
     /**
      * 添加地址

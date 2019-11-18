@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+    margin:0px;
+    padding:0px;
+    font-size:12px;
+    line-height:20px;
+    color:#333;
+}
+body{
+    background-image: url("../images/timg.jpg");
+    /* 背景图垂直、水平均居中 */
+    background-position: center center;
+    /*!* 背景图不平铺 *!*/
+    background-repeat: no-repeat;
+    /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+    background-attachment: fixed;  /*此条属性必须设置否则可能无效*/
+}
+ul,li,ol,h1,dl,dd{
+    list-style:none;
+    margin:0px;
+    padding:0px;
+}
+a{
+    color:#333333;
+    text-decoration: none;
+}
+a:hover{
+    color:#333333;
+    text-decoration:underline;
+}
+img{
+    border:0px;
+}
+.blue{
+    color:#1965b3;
+    text-decoration:none;
+}
+.blue:hover{
+    color:#1965b3;
+    text-decoration:underline;
+}
+#main{
+    width:90%;
+    margin:0px auto 0px auto;
+    clear:both;
+    float:none;
+}
+#header,#footer{width: 100%;
+}
+#header{
+    width: 100%;
+    background: -webkit-linear-gradient(#fff,#f3f3f3);
+    background: -o-linear-gradient(#fff,#f3f3f3);
+    background: -moz-linear-gradient(#fff,#f3f3f3);
+    background: linear-gradient(#fff,#f3f3f3);
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+.search{float: left; margin-left: 15px; margin-top:20px; }
+.search input[type=text]{width: 600px; height: 30px; border: 2px solid #49bafc; float: left;}
+.search input[type=button]{background:url("../images/search.jpg") no-repeat; width: 124px; height:36px; overflow: hidden; border: none;}
+#nav{width: 100%; background: greenyellow; height: 38px;  clear: both;}
+#nav ul{width: 960px; margin:0 auto;}
+#nav ul li{float: left; text-align: center; width: 120px;}
+#nav ul li:first-of-type{width: 180px;}
+#nav ul li a{color: #ffffff; font-size: 16px; font-weight: bold;line-height: 38px; display: block;}
+#nav ul li a:hover{background: #2487c1;}

@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.Goods">
         <result column="goodsId" property="goodsId"/>
         <result column="goodsName" property="goodsName"/>
+        <result column="goodsImg" property="goodsImg"/>
         <result column="categoryId" property="categoryId"/>
         <result column="details" property="details"/>
         <result column="originalPrice" property="originalPrice"/>
@@ -15,64 +16,92 @@
         <result column="categoryName" property="categoryName"/>
     </resultMap>
     <select id="queryAllGoods" resultMap="BaseResultMap ">
-        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
         FROM goods,category
         WHERE goods.categoryId=category.categoryId;
     </select>
+    <select id="queryAllGoodsExceptionCategory" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,goodsImg,categoryId,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods
+    </select>
     <select id="queryAllGoodsByOriginalPriceAsc" resultMap="BaseResultMap ">
-        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
         FROM goods,category
         WHERE goods.categoryId=category.categoryId
         ORDER BY goods.originalPrice ASC;
     </select>
     <select id="queryAllGoodsByOriginalPriceDesc" resultMap="BaseResultMap ">
-        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
         FROM goods,category
         WHERE goods.categoryId=category.categoryId
         ORDER BY goods.originalPrice DESC;
     </select>
     <select id="queryAllGoodsBysellPriceAsc" resultMap="BaseResultMap ">
-        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
         FROM goods,category
         WHERE goods.categoryId=category.categoryId
         ORDER BY goods.sellPrice ASC;
     </select>
     <select id="queryAllGoodsBysellPriceDesc" resultMap="BaseResultMap ">
-        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
         FROM goods,category
         WHERE goods.categoryId=category.categoryId
         ORDER BY goods.sellPrice DESC;
     </select>
+    <select id="queryAllGoodsByInventoryAsc" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.inventory ASC;
+    </select>
+    <select id="queryAllGoodsByInventoryDesc" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.inventory DESC;
+    </select>
+    <select id="queryAllGoodsByCreateDateAsc" resultMap="BaseResultMap ">
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.createDate ASC;
+    </select>
+    <select id="queryAllGoodsByCreateDateDesc" resultMap="BaseResultMap">
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        FROM goods,category
+        WHERE goods.categoryId=category.categoryId
+        ORDER BY goods.createDate DESC;
+    </select>
     <select id="queryGoodsByGoodsId" resultMap="BaseResultMap">
-        SELECT goodsId,goodsName,categoryId,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryId,details,originalPrice,sellPrice,inventory,createDate
         FROM goods
         WHERE goodsId = #{goodsId};
     </select>
     <select id="queryGoodsByGoodsName" resultMap="BaseResultMap">
-        SELECT goodsId,goodsName,categoryId,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryId,details,originalPrice,sellPrice,inventory,createDate
         FROM goods
         WHERE goodsName = #{goodsName};
     </select>
     <select id="queryGoodsByCategoryName" resultMap="BaseResultMap">
-        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,goods.categoryId,categoryName,details,originalPrice,sellPrice,inventory,createDate
         FROM goods,category
         WHERE goods.categoryId=category.categoryId
         AND category.categoryName=#{categoryName};
     </select>
     <select id="queryGoodsByLike" resultMap="BaseResultMap ">
-        SELECT goodsId,goodsName,categoryName,details,originalPrice,sellPrice,inventory,createDate
+        SELECT goodsId,goodsName,goodsImg,categoryName,details,originalPrice,sellPrice,inventory,createDate
         FROM goods,category
         WHERE goods.categoryId=category.categoryId
         AND goodsName LIKE concat(concat('%',#{goodsName}),'%');
     </select>
     <insert id="addGoods" parameterType="com.neusoft.graduation.entity.Goods">
-        INSERT INTO goods(goodsId,goodsName,categoryId,details,originalPrice,sellPrice,inventory,createDate)
-        VALUE (#{goodsId},#{goodsName},#{categoryId},#{details},#{originalPrice},#{sellPrice},#{inventory},now())
+        INSERT INTO goods(goodsId,goodsName,goodsImg,categoryId,details,originalPrice,sellPrice,inventory,createDate)
+        VALUE (#{goodsId},#{goodsName},#{goodsImg},#{categoryId},#{details},#{originalPrice},#{sellPrice},#{inventory},now())
     </insert>
     <update id="updateGoodsByGoodsId" parameterType="com.neusoft.graduation.entity.Goods">
         UPDATE goods
-        SET goodsId = #{goodsId},goodsName = #{goodsName},categoryId = #{categoryId},details = #{details},
-        originalPrice = #{originalPrice},sellPrice = #{sellPrice},inventory = #{inventory}
+        SET goodsId = #{goodsId},goodsName = #{goodsName},goodsImg = #{goodsImg},categoryId = #{categoryId},
+        details = #{details},originalPrice = #{originalPrice},sellPrice = #{sellPrice},inventory = #{inventory}
         WHERE  goodsId = #{goodsId}
     </update>
     <delete id="deleteGoodsByGoodsId" parameterType="int">

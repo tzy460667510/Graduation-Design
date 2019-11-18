@@ -21,6 +21,12 @@ public interface GoodsDao {
     List<Goods> queryAllGoods();
 
     /**
+     * 获取商品列表信息（不包含Category）
+     * @return
+     */
+    List<Goods> queryAllGoodsExceptionCategory();
+
+    /**
      * 进价升序获取商品列表信息
      * @return
      */
@@ -43,6 +49,30 @@ public interface GoodsDao {
      * @return
      */
     List<Goods> queryAllGoodsBysellPriceDesc();
+
+    /**
+     * 库存升序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByInventoryAsc();
+
+    /**
+     * 库存降序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByInventoryDesc();
+
+    /**
+     * 创建日期升序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByCreateDateAsc();
+
+    /**
+     * 创建日期降序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByCreateDateDesc();
 
     /**
      * 根据商品id查询商品信息

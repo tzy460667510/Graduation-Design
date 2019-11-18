@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>小菜菜网</title>
+    <link th:href="@{/asserts/css/global.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/layout.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/template.css}" rel="stylesheet"/>
+</head>
+<body>
+<header id="header">
+    <div class="header_top">
+        <div class="header_top_left">[[${session.loginUser}]]您好！欢迎光临小菜菜网
+            <a th:if="${session.loginUser} eq null" th:href="@{/client/tologin}" target="_parent">登录</a>
+            <a th:if="${session.loginUser} eq null" th:href="@{/client/toregister}" target="_parent">免费注册</a>
+        </div>
+        <div class="header_top_right">
+            <ul>
+                <li><a href="#" target="_self">客户服务</a></li>
+                <li>|</li>
+                <li id="menu"><a href="#" target="_self">新手入门</a> <img src="images/arrow_down.gif" alt="arrow"/>
+                    <div id="dd_menu_top_down">
+                        <a href="#" target="_self">购物保障</a><br/>
+                        <a href="#" target="_self">购物流程</a><br/>
+                        <a href="#" target="_self">会员介绍</a><br/>
+                        <a href="#" target="_self">常见问题</a><br/>
+                    </div>
+                </li>
+                <li>|</li>
+                <li><a href="#" target="_self">礼品卡</a></li>
+                <li>|</li>
+                <li><a href="#" target="_self">我的订单</a></li>
+                <li>|</li>
+                <li><a href="#" target="_self">我的账户</a></li>
+                <li>|</li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">购物车</a></li>
+                <li><a th:href="@{/ShoppingDetail/}+${session.loginUser}" target="_parent">购物车</a></li>
+                <li><img src="images/header_shop.gif" alt="shopping"/></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="header_middle">
+    <div class="logo"><img th:src="@{/asserts/img/sitelogo.jpg}" alt="logo"/></div>
+    <div class="search"><input type="text" placeholder="请输入搜索关键字"><input type="button"></div>
+</div>
+<nav id="nav">
+    <ul>
+        <li><a href="#"> 全部商品分类</a></li>
+        <li><a href="#"> 首页</a></li>
+        <li><a href="#"> 图书</a></li>
+        <li><a href="#"> 特价</a></li>
+        <li><a href="#"> 团购</a></li>
+    </ul>
+</nav>
+<!--中间部分开始-->
+<section id="main">
+    <div class="current_place">您现在的位置：<a href="index.html">小菜菜网</a> &gt;&gt; [[${goods.categoryName}]] &gt; [[${goods.goodsName}]]</div>
+    <div id="catList">
+        <!--图书商品分类开始-->
+        <div class="book_sort">
+            <div class="book_sort_bg"><img th:src="@{/asserts/img/dd_book_cate_icon.gif}"/> 商品分类</div>
+            <div th:each="category:${categories}">
+                <div class="book_cate">
+                    <a th:href="@{/client/toproductlistbycategory/}+${category.categoryName}">[[${category.categoryName}]]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧内容开始-->
+    <div id="product_storyList">
+        <!--图书排列开始-->
+        <div id="product_storyList_content" class="product_storyList_content">
+            <div id="storyBooksssss"><!--使用javaScript显示图书列表--></div>
+            <!--列表开始-->
+            <div class="product_storyList_content_left"></div>
+            <div class="product_storyList_content_right">
+                <form name="shoppingdetail" th:action="@{/clientShoppingAdd/}+${session.loginUser}" method="post">
+                    <ul>
+                        <li class="product_storyList_content_dash">
+                            <a href="#" class="blue_14">[[${goods.goodsName}]]</a>
+                        </li>
+                        <li>
+                            <img th:src="@{${goods.goodsImg}}" alt="商品图片"/>
+                        </li>
+                        <li>生鲜名称：[[${goods.goodsName}]]<input type="hidden" name="goodsName" th:value="${goods.goodsName}"/></li>
+                        <li>类别：[[${goods.categoryName}]]</li>
+                        <li>[[${goods.details}]]</li>
+                        <li>
+                            <dl class="product_content_dd">
+                                <dd>
+                                    <input th:if="${session.loginUser} ne null" type="number" name="goodsCount" oninput = "value=value.replace(/[^\d]/g,'')" placeholder="请输入购买数量" value="1">
+                                    <input th:if="${session.loginUser} ne null" type="submit" value="添加到购物车">
+                                </dd>
+                                <dd>库存量：[[${goods.inventory}]]斤</dd>
+                                <dd class="footer_dull_red"><span>￥[[${goods.sellPrice}]]</span></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <!--右侧内容结束-->
+</section>
+<!--网站版权部分开始-->
+<footer id="footer">
+    <div class="footer_top"><a href="#" target="_parent" class="footer_dull_red">正版保障</a> | <a href="#" target="_parent"
+                                                                                               class="footer_dull_red">满额免运</a>
+        | <a href="#" target="_parent" class="footer_dull_red">货到付款</a> | <a href="#" target="_parent"
+                                                                             class="footer_dull_red">品种最全</a> | <a
+                href="#" target="_parent" class="footer_dull_red">免费退换</a></div>
+    <div class="footer_end">Copyright (C) 蔚蓝网 2006-2016, All Rights Reserved <img src="images/validate.gif" alt="版权"
+                                                                                  style="vertical-align:middle;"/>
+        京ICP证100488号 出版物经营许可证 京批100160号
+    </div>
+</footer>
+
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/product.js"></script>
+<script src="js/header.js"></script>
+</body>
+</html>

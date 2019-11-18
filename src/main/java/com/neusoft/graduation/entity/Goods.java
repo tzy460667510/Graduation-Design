@@ -10,6 +10,7 @@ package com.neusoft.graduation.entity;
 public class Goods {
     private int goodsId;//商品id
     private String goodsName;//商品名称
+    private String goodsImg;//商品图片
     private int categoryId;//类别id关联类别表
     private String categoryName;//类别名称
     private String details;//商品详情
@@ -21,9 +22,10 @@ public class Goods {
     public Goods() {
     }
 
-    public Goods(int goodsId, String goodsName, int categoryId, String categoryName, String details, double originalPrice, double sellPrice, int inventory, String createDate) {
+    public Goods(int goodsId, String goodsName, String goodsImg, int categoryId, String categoryName, String details, double originalPrice, double sellPrice, int inventory, String createDate) {
         this.goodsId = goodsId;
         this.goodsName = goodsName;
+        this.goodsImg = goodsImg;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.details = details;
@@ -33,15 +35,12 @@ public class Goods {
         this.createDate = createDate;
     }
 
-    public Goods(int goodsId, String goodsName, int categoryId, String details, double originalPrice, double sellPrice, int inventory, String createDate) {
-        this.goodsId = goodsId;
-        this.goodsName = goodsName;
-        this.categoryId = categoryId;
-        this.details = details;
-        this.originalPrice = originalPrice;
-        this.sellPrice = sellPrice;
-        this.inventory = inventory;
-        this.createDate = createDate;
+    public String getGoodsImg() {
+        return goodsImg;
+    }
+
+    public void setGoodsImg(String goodsImg) {
+        this.goodsImg = goodsImg;
     }
 
     public int getGoodsId() {

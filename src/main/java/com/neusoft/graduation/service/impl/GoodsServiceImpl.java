@@ -26,6 +26,11 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+    public List<Goods> queryAllGoodsExceptionCategory() {
+        return goodsDao.queryAllGoodsExceptionCategory();
+    }
+
+    @Override
     public List<Goods> queryAllGoodsByOriginalPriceAsc() {
         return goodsDao.queryAllGoodsByOriginalPriceAsc();
     }
@@ -43,6 +48,26 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public List<Goods> queryAllGoodsBysellPriceDesc() {
         return goodsDao.queryAllGoodsBysellPriceDesc();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsByInventoryAsc() {
+        return goodsDao.queryAllGoodsByInventoryAsc();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsByInventoryDesc() {
+        return goodsDao.queryAllGoodsByInventoryDesc();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsByCreateDateAsc() {
+        return goodsDao.queryAllGoodsByCreateDateAsc();
+    }
+
+    @Override
+    public List<Goods> queryAllGoodsByCreateDateDesc() {
+        return goodsDao.queryAllGoodsByCreateDateDesc();
     }
 
     @Override

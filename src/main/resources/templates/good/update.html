@@ -58,31 +58,40 @@
                 <input type="hidden" name="goodsId" th:if="${goods!=null}" th:value="${goods.goodsId}">
                 <div class="form-group">
                     <label>商品名称</label>
+                    <p style="color: red" th:text="${msg1}" th:if="${not #strings.isEmpty(msg1)}"></p>
+<!--                    <p style="color: red" th:text="${msg2}" th:if="${not #strings.isEmpty(msg2)}"></p>-->
                     <input name="goodsName" type="text" class="form-control" placeholder="${good.goodsName}"
                            th:value="${goods!=null}?${goods.goodsName}">
                 </div>
                 <div class="form-group">
                     <label>商品类别</label>
-                    <input name="categoryId" type="text" class="form-control" placeholder="${good.categoryId}"
-                           th:value="${goods!=null}?${goods.categoryId}">
+                    <select name="categoryName" class="form-control">
+                        <option th:selected="${goods!=null}" th:text="${goods.categoryName}" ></option>
+                        <option th:each="categories:${categories}" th:text="${categories.categoryName}"></option>
+                        <option th:selected="${categories!=null}" th:each="categories:${categoriesx}" th:text="${categories.categoryName}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>商品详情</label>
+                    <p style="color: red" th:text="${msg3}" th:if="${not #strings.isEmpty(msg3)}"></p>
                     <input name="details" type="text" class="form-control" placeholder="${good.details}"
                            th:value="${goods!=null}?${goods.details}">
                 </div>
                 <div class="form-group">
                     <label>商品进价</label>
+                    <p style="color: red" th:text="${msg4}" th:if="${not #strings.isEmpty(msg4)}"></p>
                     <input name="originalPrice" type="text" class="form-control" placeholder="${good.originalPrice}"
                            th:value="${goods!=null}?${goods.originalPrice}">
                 </div>
                 <div class="form-group">
                     <label>商品售价</label>
+                    <p style="color: red" th:text="${msg5}" th:if="${not #strings.isEmpty(msg5)}"></p>
                     <input name="sellPrice" type="text" class="form-control" placeholder="${good.sellPrice}"
                            th:value="${goods!=null}?${goods.sellPrice}">
                 </div>
                 <div class="form-group">
                     <label>库存</label>
+                    <p style="color: red" th:text="${msg6}" th:if="${not #strings.isEmpty(msg6)}"></p>
                     <input name="inventory" type="text" class="form-control" placeholder="${good.inventory}"
                            th:value="${goods!=null}?${goods.inventory}">
                 </div>

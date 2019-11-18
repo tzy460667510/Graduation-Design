@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Dashboard Template for Bootstrap</title>
+		<!-- Bootstrap core CSS -->
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--引入抽取的topbar-->
+		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+		<div th:replace="commons/bar::topbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!--引入侧边栏-->
+				<div th:replace="commons/bar::#sidebar(activeUri='orders')"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+					<form th:action="@{/orderAdd}" method="post">
+						<div class="form-group">
+							<label>平台昵称</label>
+							<p style="color: red" th:text="${msg1}" th:if="${not #strings.isEmpty(msg1)}"></p>
+							<p style="color: red" th:text="${msg2}" th:if="${not #strings.isEmpty(msg2)}"></p>
+							<input name="userName" type="text" class="form-control"
+								   placeholder="请输入平台昵称" >
+						</div>
+						<div class="form-group">
+							<label>商品名称</label>
+                            <p style="color: red" th:text="${msg3}" th:if="${not #strings.isEmpty(msg3)}"></p>
+							<p style="color: red" th:text="${msg4}" th:if="${not #strings.isEmpty(msg4)}"></p>
+							<input name="goodsName" type="text" class="form-control" placeholder="请输入商品名称">
+						</div>
+						<div class="form-group">
+							<label>购买数量</label>
+							<p style="color: red" th:text="${msg5}" th:if="${not #strings.isEmpty(msg5)}"></p>
+                            <p style="color: red" th:text="${msg6}" th:if="${not #strings.isEmpty(msg6)}"></p>
+							<input name="goodsCount" type="number" class="form-control" oninput = "value=value.replace(/[^\d]/g,'')" value="0">
+						</div>
+						<div class="form-group">
+							<label>收货姓名</label>
+							<p style="color: red" th:text="${msg7}" th:if="${not #strings.isEmpty(msg7)}"></p>
+							<input name="realName" type="text" class="form-control" placeholder="请输入收货姓名">
+						</div>
+						<div class="form-group">
+							<label>地址</label>
+							<p style="color: red" th:text="${msg8}" th:if="${not #strings.isEmpty(msg8)}"></p>
+							<input name="addressDetail" type="text" class="form-control" placeholder="请输入地址">
+						</div>
+						<div class="form-group">
+							<label>电话</label>
+							<p style="color: red" th:text="${msg9}" th:if="${not #strings.isEmpty(msg9)}"></p>
+							<input name="phone" type="text" class="form-control" placeholder="请输入电话">
+						</div>
+						<button type="submit" class="btn btn-primary">添加</button>
+					</form>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+		<script>
+			feather.replace()
+		</script>
+
+	</body>
+
+</html>

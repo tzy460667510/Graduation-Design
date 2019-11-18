@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.graduation.dao.ShoppingDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.Shopping">
+        <result column="shoppingId" property="shoppingId"/>
+        <result column="userId" property="userId"/>
+        <result column="userName" property="userName"/>
+        <result column="realName" property="realName"/>
+        <result column="goodsId" property="goodsId"/>
+        <result column="goodsName" property="goodsName"/>
+        <result column="goodsCount" property="goodsCount"/>
+        <result column="sellPrice" property="sellPrice"/>
+        <result column="addressId" property="addressId"/>
+        <result column="addressDetail" property="addressDetail"/>
+        <result column="phone" property="phone"/>
+        <result column="statue" property="statue"/>
+        <result column="shoppingImg" property="shoppingImg"/>
+        <result column="shoppingTotal" property="shoppingTotal"/>
+        <result column="createDate" property="createDate"/>
+    </resultMap>
+    <select id="queryShoppingByUserName" resultMap="BaseResultMap ">
+        SELECT shoppingId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,shoppingImg,shoppingTotal,createDate
+        FROM shopping
+        WHERE userName = #{userName};
+    </select>
+    <insert id="addShopping" parameterType="com.neusoft.graduation.entity.Shopping">
+        INSERT INTO shopping(shoppingId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,addressId,phone,addressDetail,statue,shoppingImg,shoppingTotal,createDate)
+        VALUE (#{shoppingId},#{userId},#{userName},#{realName},#{goodsId},#{goodsName},#{goodsCount},#{sellPrice},#{addressId},#{phone},#{addressDetail},1,#{shoppingImg},#{shoppingTotal},now());
+    </insert>
+    <update id="updateShoppingByShoppingId" parameterType="com.neusoft.graduation.entity.Shopping">
+        UPDATE shopping
+        SET shoppingId = #{shoppingId},userId = #{userId},userName = #{userName},realName = #{realName},
+        goodsId = #{goodsId},goodsName = #{goodsName},goodsCount = #{goodsCount},sellPrice = #{sellPrice},
+        shoppingTotal = #{shoppingTotal}
+        WHERE shoppingId = #{shoppingId};
+    </update>
+    <delete id="deleteShoppingByGoodsName" parameterType="String">
+        DELETE FROM shopping
+        WHERE goodsName=#{goodsName}
+        AND userName=#{userName};
+    </delete>
+    <delete id="deleteShoppingByUserName" parameterType="String">
+        DELETE FROM shopping
+        WHERE userName=#{userName};
+    </delete>
+</mapper>

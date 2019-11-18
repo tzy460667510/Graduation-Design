@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.graduation.dao.OrderDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.Order">
+        <result column="orderId" property="orderId"/>
+        <result column="userId" property="userId"/>
+        <result column="userName" property="userName"/>
+        <result column="realName" property="realName"/>
+        <result column="goodsId" property="goodsId"/>
+        <result column="goodsName" property="goodsName"/>
+        <result column="goodsCount" property="goodsCount"/>
+        <result column="sellPrice" property="sellPrice"/>
+        <result column="addressId" property="addressId"/>
+        <result column="addressDetail" property="addressDetail"/>
+        <result column="phone" property="phone"/>
+        <result column="statue" property="statue"/>
+        <result column="orderImg" property="orderImg"/>
+        <result column="orderTotal" property="orderTotal"/>
+        <result column="createDate" property="createDate"/>
+    </resultMap>
+    <select id="queryAllOrder" resultMap="BaseResultMap ">
+        SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        ORDER BY createDate DESC;
+    </select>
+    <select id="queryAllOrderByGoodsCountAsc" resultMap="BaseResultMap ">
+       SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        ORDER BY goodsCount ASC;
+    </select>
+    <select id="queryAllOrderByGoodsCountDesc" resultMap="BaseResultMap ">
+       SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        ORDER BY goodsCount DESC ;
+    </select>
+    <select id="queryAllOrderByOrderTotalAsc" resultMap="BaseResultMap ">
+       SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        ORDER BY orderTotal ASC ;
+    </select>
+    <select id="queryAllOrderByOrderTotalDesc" resultMap="BaseResultMap ">
+        SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        ORDER BY orderTotal DESC ;
+    </select>
+    <select id="queryOrderByOrderId" resultMap="BaseResultMap ">
+        SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        WHERE orderId = #{orderId};
+    </select>
+    <select id="queryOrderByStatue" resultMap="BaseResultMap ">
+      SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        WHERE statue = #{statue};
+    </select>
+    <select id="queryOrderByUserName" resultMap="BaseResultMap ">
+        SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        WHERE userName = #{userName};
+    </select>
+    <select id="queryOrderByGoodsName" resultMap="BaseResultMap ">
+       SELECT orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate
+        FROM orders
+        WHERE goodsName = #{goodsName};
+    </select>
+    <insert id="addOrder" parameterType="com.neusoft.graduation.entity.Order">
+        INSERT INTO orders(orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,addressId,phone,addressDetail,statue,orderImg,orderTotal,createDate)
+        VALUE (#{orderId},#{userId},#{userName},#{realName},#{goodsId},#{goodsName},#{goodsCount},#{sellPrice},#{addressId},#{phone},#{addressDetail},1,#{orderImg},#{orderTotal},now());
+    </insert>
+    <update id="updateOrderByOrderId" parameterType="com.neusoft.graduation.entity.Order">
+        UPDATE orders
+        SET orderId = #{orderId},userId = #{userId},userName = #{userName},realName = #{realName},
+        goodsId = #{goodsId},goodsName = #{goodsName},goodsCount = #{goodsCount},addressId = #{addressId},
+        phone = #{phone},addressDetail = #{addressDetail},statue = #{statue},orderImg = #{orderImg},
+        orderTotal = #{orderTotal}
+        WHERE  orderId = #{orderId};
+    </update>
+    <update id="updateOrderByStatue" parameterType="com.neusoft.graduation.entity.Order">
+        UPDATE orders
+        SET orderId = #{orderId},userId = #{userId},userName = #{userName},,realName = #{realName},
+        goodsId = #{goodsId},goodsName = #{goodsName},goodsCount = #{goodsCount},addressId = #{addressId},
+        phone = #{phone},addressDetail = #{addressDetail},statue = #{statue},orderImg = #{orderImg},
+        orderTotal = #{orderTotal}
+        WHERE statue = #{statue};
+    </update>
+    <delete id="deleteOrderByOrderId" parameterType="int">
+        DELETE FROM orders WHERE orderId=#{orderId};
+    </delete>
+</mapper>

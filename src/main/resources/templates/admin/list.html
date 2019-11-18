@@ -71,11 +71,11 @@
 							<tbody>
 								<tr th:each="admin:${admins}">
 									<td th:text="${admin.adminId}"></td>
-									<td>[[${admin.adminName}]]</td>
+									<td><a th:href="@{/adminDetail/}+${admin.adminName}">[[${admin.adminName}]]</a></td>
 									<td th:text="${admin.password}"></td>
 									<td th:text="${admin.phone}"></td>
 									<td th:text="${admin.sal}"></td>
-									<td th:text="${admin.roleId}==0?'超级管理员':'二级管理员'"></td>
+									<td th:text="${admin.roleName}"></td>
 									<td th:text="${admin.createDate}"></td>
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/adminUpdate/}+${admin.adminId}">编辑</a>

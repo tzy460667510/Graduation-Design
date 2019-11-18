@@ -34,12 +34,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address queryAddressByUserId(int id) {
+    public List<Address> queryAddressByUserId(int id) {
         return addressDao.queryAddressByUserId(id);
     }
 
     @Override
-    public Address queryAddressByUserName(String name) {
+    public List<Address> queryAddressByUserName(String name) {
         return addressDao.queryAddressByUserName(name);
     }
 

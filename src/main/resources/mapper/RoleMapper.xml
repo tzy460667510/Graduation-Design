@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.graduation.dao.RoleDao">
+    <resultMap id="BaseResultMap" type="com.neusoft.graduation.entity.Role">
+        <result column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+    </resultMap>
+    <select id="queryAllRole" resultMap="BaseResultMap">
+        SELECT roleId,roleName
+        FROM role;
+    </select>
+</mapper>

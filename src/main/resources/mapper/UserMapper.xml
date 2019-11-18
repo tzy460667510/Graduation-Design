@@ -40,12 +40,12 @@
     </select>
     <insert id="addUser" parameterType="com.neusoft.graduation.entity.User">
         INSERT INTO user(userId,userName,password,realName,address,email,phone,createDate,sculpture,roleId,addressId)
-        VALUE (#{userId},#{userName}, #{password}, #{realName},#{address},#{email}, #{phone}, #{createDate}, #{sculpture}, #{roleId}, #{addressId})
+        VALUE (#{userId},#{userName}, #{password}, #{realName},#{address},#{email}, #{phone}, now(), #{sculpture}, 3, #{addressId})
     </insert>
     <update id="updateUserByUserId" parameterType="com.neusoft.graduation.entity.User">
         UPDATE user
         SET userId = #{userId},userName = #{userName},password = #{password},realName = #{realName},
-        address = #{address},email = #{email},phone = #{phone},createDate = #{createDate},
+        address = #{address},email = #{email},phone = #{phone},
         sculpture = #{sculpture},roleId = #{roleId},addressId = #{addressId}
         WHERE  userId = #{userId}
     </update>

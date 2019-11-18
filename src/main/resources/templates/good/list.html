@@ -72,21 +72,28 @@
                         </th>
                         <th>
                             <select name="originalPrice" onchange="location.href=this.value"
-                                    th:value="${msg}">
+                                    th:value="${msg1}">
                                 <option th:value="@{/goods}">进价</option>
-                                <option th:value="@{/originalPriceByUp}" th:selected="${msg == '升序'}">进价升序</option>
-                                <option th:value="@{/originalPriceByDown}" th:selected="${msg == '降序'}">进价降序</option>
+                                <option th:value="@{/originalPriceByUp}" th:selected="${msg1 == '升序'}">进价升序</option>
+                                <option th:value="@{/originalPriceByDown}" th:selected="${msg1 == '降序'}">进价降序</option>
                             </select>
                         </th>
                         <th>
                             <select name="originalPrice" onchange="location.href=this.value"
-                                    th:value="${msg}">
+                                    th:value="${msg2}">
                                 <option th:value="@{/goods}">售价</option>
-                                <option th:value="@{/sellPriceByUp}" th:selected="${msg == '升序'}">售价升序</option>
-                                <option th:value="@{/sellPriceByDown}" th:selected="${msg == '降序'}">售价降序</option>
+                                <option th:value="@{/sellPriceByUp}" th:selected="${msg2 == '升序'}">售价升序</option>
+                                <option th:value="@{/sellPriceByDown}" th:selected="${msg2 == '降序'}">售价降序</option>
                             </select>
                         </th>
-                        <th><a href="#">库存</a></th>
+                        <th>
+                            <select name="originalPrice" onchange="location.href=this.value"
+                                    th:value="${msg3}">
+                                <option th:value="@{/goods}">库存</option>
+                                <option th:value="@{/inventoryByUp}" th:selected="${msg3 == '升序'}">库存升序</option>
+                                <option th:value="@{/inventoryByDown}" th:selected="${msg3 == '降序'}">库存降序</option>
+                            </select>
+                        </th>
                         <th><a href="#">创建日期</a></th>
                         <th>操作</th>
                     </tr>

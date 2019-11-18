@@ -13,9 +13,12 @@ public class Order {
     private String userName;
     private int goodsId;
     private String goodsName;
+    private String realName;
     private int goodsCount;
+    private double sellPrice;
     private int addressId;
     private String addressDetail;
+    private String phone;
     private int statue;
     private String orderImg;
     private double orderTotal;
@@ -24,19 +27,46 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderId, int userId, String userName, int goodsId, String goodsName, int goodsCount, int addressId, String addressDetail, int statue, String orderImg, double orderTotal, String createDate) {
+    public Order(int orderId, int userId, String userName, int goodsId, String goodsName, String realName, int goodsCount, double sellPrice, int addressId, String addressDetail, String phone, int statue, String orderImg, double orderTotal, String createDate) {
         this.orderId = orderId;
         this.userId = userId;
         this.userName = userName;
         this.goodsId = goodsId;
         this.goodsName = goodsName;
+        this.realName = realName;
         this.goodsCount = goodsCount;
+        this.sellPrice = sellPrice;
         this.addressId = addressId;
         this.addressDetail = addressDetail;
+        this.phone = phone;
         this.statue = statue;
         this.orderImg = orderImg;
         this.orderTotal = orderTotal;
         this.createDate = createDate;
+    }
+
+    public double getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(double sellPrice) {
+        this.sellPrice = sellPrice;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public int getOrderId() {
@@ -143,9 +173,12 @@ public class Order {
                 ", userName='" + userName + '\'' +
                 ", goodsId=" + goodsId +
                 ", goodsName='" + goodsName + '\'' +
+                ", realName='" + realName + '\'' +
                 ", goodsCount=" + goodsCount +
+                ", sellPrice=" + sellPrice +
                 ", addressId=" + addressId +
                 ", addressDetail='" + addressDetail + '\'' +
+                ", phone='" + phone + '\'' +
                 ", statue=" + statue +
                 ", orderImg='" + orderImg + '\'' +
                 ", orderTotal=" + orderTotal +

@@ -8,6 +8,7 @@
         <result column="adminName" property="adminName"/>
         <result column="password" property="password"/>
         <result column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
         <result column="phone" property="phone"/>
         <result column="sal" property="sal"/>
         <result column="createDate" property="createDate"/>
@@ -16,18 +17,21 @@
         <result column="remark3" property="remark3"/>
     </resultMap>
     <select id="queryAllAdmin" resultMap="BaseResultMap">
-        SELECT adminId,adminName,password,roleId,phone,sal,createDate,remark1,remark2,remark3
-        FROM admin;
+        SELECT adminId,adminName,password,roleName,phone,sal,createDate,remark1,remark2,remark3
+        FROM admin,role
+        WHERE admin.roleId=role.roleId;
     </select>
     <select id="queryAdminByAdminId" resultMap="BaseResultMap">
-        SELECT adminId,adminName,password,roleId,phone,sal,createDate,remark1,remark2,remark3
-        FROM admin
-        WHERE adminId = #{adminId};
+        SELECT adminId,adminName,password,roleName,phone,sal,createDate,remark1,remark2,remark3
+        FROM admin,role
+        WHERE admin.roleId=role.roleId
+        AND adminId = #{adminId};
     </select>
     <select id="queryAdminByAdminName" resultMap="BaseResultMap">
-        SELECT adminId,adminName,password,roleId,phone,sal,createDate,remark1,remark2,remark3
-        FROM admin
-        WHERE adminName = #{adminName};
+        SELECT adminId,adminName,password,roleName,phone,sal,createDate,remark1,remark2,remark3
+        FROM admin,role
+        WHERE admin.roleId=role.roleId
+        AND adminName = #{adminName};
     </select>
     <insert id="addAdmin" parameterType="com.neusoft.graduation.entity.Admin">
         INSERT INTO admin(adminId,adminName,password,roleId,phone,sal,createDate)

@@ -1,13 +1,16 @@
 package com.neusoft.graduation.controller;
 
 import com.neusoft.graduation.entity.Admin;
+import com.neusoft.graduation.entity.Role;
 import com.neusoft.graduation.service.AdminService;
+import com.neusoft.graduation.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName AdminController
@@ -20,6 +23,8 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private RoleService roleService;
 
     //管理员列表页面
     @GetMapping("/admins")
@@ -29,21 +34,104 @@ public class AdminController {
         return "admin/list";
     }
 
+    @GetMapping("/adminDetail/{adminName}")
+    public String toDetailPage(@PathVariable("adminName") String name, Model model) {
+        System.out.println(name);
+        Admin admin = adminService.queryAdminByAdminName(name);
+        System.out.println(admin);
+        model.addAttribute("admin", admin);
+        return "admin/detail";
+    }
+
     //来到管理员添加页面
     @GetMapping("/adminAdd")
     public String toAddPage(Model model) {
+        List<Role> roles = roleService.queryAllRole();
         List<Admin> admins = adminService.queryAllAdmin();
-        System.out.println(admins);
+        for (int i = 0; i < roles.size(); i++) {
+            if (roles.get(i).getRoleName().equals("用户")) {
+                roles.remove(i);
+            }
+        }
+        model.addAttribute("roles", roles);
         model.addAttribute("admins", admins);
         return "admin/add";
     }
 
     //管理员添加
     @PostMapping("/adminAdd")
-    public String addAdmin(Admin admin) {
+    public String addAdmin(Admin admin, Model model, Map<String, Object> map) {
         System.out.println(admin);
-        adminService.addAdmin(admin);
-        return "redirect:/admins";
+        List<Role> roles = roleService.queryAllRole();
+        for (int i = 0; i < roles.size(); i++) {
+            if (roles.get(i).getRoleName().equals(admin.getRoleName())) {
+                admin.setRoleId(roles.get(i).getRoleId());
+            }
+        }
+        if (admin.getAdminName().isEmpty()) {
+            List<Role> rolex = roleService.queryAllRole();
+            for (int i = 0; i < rolex.size(); i++) {
+                if (rolex.get(i).getRoleName().equals("用户")) {
+                    rolex.remove(i);
+                }
+            }
+            model.addAttribute("rolex", rolex);
+            map.put("msg1", "管理员名称不可为空");
+            return "admin/add";
+        } else if (adminService.queryAdminByAdminName(admin.getAdminName()) != null) {
+            map.put("msg2", "管理员已存在");
+            List<Role> rolex = roleService.queryAllRole();
+            for (int i = 0; i < rolex.size(); i++) {
+                if (rolex.get(i).getRoleName().equals("用户")) {
+                    rolex.remove(i);
+                }
+            }
+            model.addAttribute("rolex", rolex);
+            return "admin/add";
+        } else if (admin.getPassword().isEmpty()) {
+            List<Role> rolex = roleService.queryAllRole();
+            for (int i = 0; i < rolex.size(); i++) {
+                if (rolex.get(i).getRoleName().equals("用户")) {
+                    rolex.remove(i);
+                }
+            }
+            model.addAttribute("rolex", rolex);
+            map.put("msg3", "密码不可为空");
+            return "admin/add";
+        } else if (admin.getPhone().isEmpty()) {
+            List<Role> rolex = roleService.queryAllRole();
+            for (int i = 0; i < rolex.size(); i++) {
+                if (rolex.get(i).getRoleName().equals("用户")) {
+                    rolex.remove(i);
+                }
+            }
+            model.addAttribute("rolex", rolex);
+            map.put("msg4", "电话不可为空");
+            return "admin/add";
+        } else if (admin.getSal() == 0) {
+            List<Role> rolex = roleService.queryAllRole();
+            for (int i = 0; i < rolex.size(); i++) {
+                if (rolex.get(i).getRoleName().equals("用户")) {
+                    rolex.remove(i);
+                }
+            }
+            model.addAttribute("rolex", rolex);
+            map.put("msg5", "工资不可为空");
+            return "admin/add";
+        } else if (admin.getRoleName().isEmpty()) {
+            List<Role> rolex = roleService.queryAllRole();
+            for (int i = 0; i < rolex.size(); i++) {
+                if (rolex.get(i).getRoleName().equals("用户")) {
+                    rolex.remove(i);
+                }
+            }
+            model.addAttribute("rolex", rolex);
+            map.put("msg6", "请选择管理员级别");
+            return "admin/add";
+        } else {
+            adminService.addAdmin(admin);
+            return "redirect:/admins";
+        }
     }
 
     //来到修改页面，查出当前管理员信息，在页面回显

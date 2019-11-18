@@ -52,14 +52,14 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
         <input name="goodsId" type="hidden" th:if="${goods!=null}" th:value="${goods.goodsId}">
         <div class="form-group">
-            <label>商品名称</label>
-            <input name="goodsName" class="form-control" readonly="readonly"
-                   th:value="${goods!=null}?${goods.goodsName}">
-        </div>
+        <label>商品名称</label>
+        <input name="goodsName" class="form-control" readonly="readonly"
+               th:value="${goods!=null}?${goods.goodsName}">
+    </div>
         <div class="form-group">
             <label>商品类别</label>
             <input name="categoryId" type="text" class="form-control" readonly="readonly"
-                   th:value="${goods!=null}?${goods.categoryId}">
+                   th:value="${goods!=null}?${goods.categoryName}">
         </div>
         <div class="form-group">
             <label>商品详情</label>
@@ -85,6 +85,11 @@
             <label>创建日期</label>
             <input name="createDate" type="text" class="form-control" readonly="readonly"
                    th:value="${goods!=null}?${goods.createDate}">
+        </div>
+        <div class="form-group">
+            <label>商品图片</label>
+            <input name="goodsImg" type="image" class="form-control" readonly="readonly"
+                   style="height: 400px;width: 500px"  th:src="${goods!=null}?${goods.goodsImg}">
         </div>
     </main>
 </div>

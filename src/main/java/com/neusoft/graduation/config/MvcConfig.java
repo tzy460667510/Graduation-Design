@@ -2,11 +2,14 @@ package com.neusoft.graduation.config;
 
 import com.neusoft.graduation.component.LocaleResolver;
 import com.neusoft.graduation.component.LoginHandlerInterceptor;
+import com.sun.deploy.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -39,7 +42,11 @@ public class MvcConfig implements WebMvcConfigurer {
     //映射地址路径
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("login");
+//        registry.addViewController("").setViewName("client/index");
+//        registry.addViewController("/").setViewName("client/index");
+        registry.addViewController("/client").setViewName("client/index");
+        registry.addViewController("/server").setViewName("login");
+        registry.addViewController("/client.html").setViewName("client/index");
         registry.addViewController("/index.html").setViewName("login");
         registry.addViewController("/main.html").setViewName("dashboard");
     }

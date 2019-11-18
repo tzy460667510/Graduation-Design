@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>蔚蓝网购物车页面</title>
+    <link th:href="@{/asserts/css/global.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/layout.css}" rel="stylesheet"/>
+    <link th:href="@{/asserts/css/template.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<header id="header">
+    <div class="header_top">
+        <div class="header_top_left">[[${session.loginUser}]]您好！欢迎光临小菜菜网
+            <a th:if="${session.loginUser} eq null" th:href="@{/client/tologin}" target="_parent">登录</a>
+            <a th:if="${session.loginUser} eq null" th:href="@{/client/toregister}" target="_parent">免费注册</a>
+        </div>
+        <div class="header_top_right">
+            <ul>
+                <li><a href="#" target="_self">客户服务</a></li>
+                <li>|</li>
+                <li id="menu"><a href="#" target="_self">新手入门</a> <img src="images/arrow_down.gif" alt="arrow"/>
+                    <div id="dd_menu_top_down">
+                        <a href="#" target="_self">购物保障</a><br/>
+                        <a href="#" target="_self">购物流程</a><br/>
+                        <a href="#" target="_self">会员介绍</a><br/>
+                        <a href="#" target="_self">常见问题</a><br/>
+                    </div>
+                </li>
+                <li>|</li>
+                <li><a href="#" target="_self">礼品卡</a></li>
+                <li>|</li>
+                <li><a href="#" target="_self">我的订单</a></li>
+                <li>|</li>
+                <li><a href="#" target="_self">我的账户</a></li>
+                <li>|</li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">购物车</a></li>
+                <li><a th:href="@{/ShoppingDetail/}+${session.loginUser}" target="_parent">购物车</a></li>
+                <li><img src="images/header_shop.gif" alt="shopping"/></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="header_middle">
+    <div class="logo"><img th:src="@{/asserts/img/sitelogo.jpg}" alt="logo"/></div>
+    <div class="search"><input type="text" placeholder="请输入搜索关键字"><input type="button"></div>
+</div>
+<nav id="nav">
+    <ul>
+        <li><a href="#"> 全部商品分类</a></li>
+        <li><a th:href="@{/client}"> 首页</a></li>
+        <li><a href="#"> 图书</a></li>
+        <li><a href="#"> 特价</a></li>
+        <li><a href="#"> 团购</a></li>
+    </ul>
+</nav>
+<!--中间部分开始-->
+<div id="main">
+    <div>&nbsp;&nbsp;<img th:src="@{/asserts/img/shopping_myshopping.gif}" alt="shopping"/> 全场免运费活动中</div>
+</div>
+<div class="shopping_list_top" th:if="${shoppings} ne null">您已选购以下商品</div>
+<div class="shopping_list_border">
+    <div class='empty_product' th:if="${shoppings} eq null">
+        <div>您还没有挑选商品，<a th:href="@{/client}">去看看吧>></a>
+        </div>
+    </div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" th:if="${shoppings} ne null">
+        <tr class="shopping_list_title">
+            <td class="shopping_list_title_1">商品名</td>
+            <td class="shopping_list_title_5">数量</td>
+            <td class="shopping_list_title_4">小菜菜价</td>
+            <td class="shopping_list_title_2">总价</td>
+            <td class="shopping_list_title_6">删除</td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTableProduct" th:if="${shoppings} ne null">
+        <tr class="shopping_product_list" id="shoppingProduct_01"
+        th:each="shopping:${shoppings}">
+            <td class="shopping_product_list_1"><a href="#" class="blue">[[${shopping.goodsName}]]</a></td>
+            <td class="shopping_product_list_5"><input type="text" th:value="${shopping.goodsCount}"/></td>
+            <td class="shopping_product_list_4">￥<label>[[${shopping.sellPrice}]]</label></td>
+            <td class="shopping_product_list_2"><label>[[${shopping.shoppingTotal}]]</label></td>
+            <td class="shopping_product_list_6"><a th:href="@{/client/deleteShoppingByGoodsName(loginUser=${session.loginUser},goodsName=${shopping.goodsName})}" class="blue">删除</a></td>
+        </tr>
+    </table>
+    <div class="shopping_list_end" th:if="${shoppings} ne null">
+        <div><a id="removeAllProduct" th:href="@{/client/deleteShoppingByUserName(loginUser=${session.loginUser})}">清空购物车</a></div>
+        <ul>
+            <li class="shopping_list_end_1"><input name="" type="image" th:src="@{/asserts/img/shopping_balance.gif}"/></li>
+            <li class="shopping_list_end_2">￥<label id="product_total"></label></li>
+            <li class="shopping_list_end_3">商品金额总计：</li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<!--网站版权部分开始-->
+<footer id="footer">
+    <div class="footer_top"><a href="#" target="_parent" class="footer_dull_red">正版保障</a> | <a href="#" target="_parent"
+                                                                                               class="footer_dull_red">满额免运</a>
+        | <a href="#" target="_parent" class="footer_dull_red">货到付款</a> | <a href="#" target="_parent"
+                                                                             class="footer_dull_red">品种最全</a> | <a
+                href="#" target="_parent" class="footer_dull_red">免费退换</a></div>
+    <div class="footer_end">Copyright (C) 蔚蓝网 2006-2016, All Rights Reserved <img src="images/validate.gif" alt="版权"
+                                                                                  style="vertical-align:middle;"/>
+        京ICP证100488号 出版物经营许可证 京批100160号
+    </div>
+</footer>
+<script th:src="@{/asserts/js/jquery-1.12.4.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        //显示和隐藏列表
+        $("#shopping_commend_arrow").click(function () {
+            if ($("#shopping_commend_sort").css("display") == "none") {
+                $(this).attr("src", "images/shopping_arrow_up.gif");
+            } else {
+                $(this).attr("src", "images/shopping_arrow_down.gif");
+            }
+            $("#shopping_commend_sort").toggle();
+        });
+
+        //计算节省金额，获得商品积分，商品金额总计
+        function totalPrice() {
+            //积分，原价，现价
+            var percents = 0, prePrices = 0, prices = 0;
+            $("#myTableProduct").find("tr").each(function (i, ele) {
+                var num = $(ele).find(".shopping_product_list_5").find("input").val();
+                // percents += parseInt($(ele).find(".shopping_product_list_2").text()) * num;
+                var price = parseInt($(ele).find(".shopping_product_list_2").find("label").text().replace(".", "")) *10;
+                prices += price;
+                var prePrice = parseInt($(ele).find(".shopping_product_list_3").find("label").text().replace(".", "")) * num;
+                prePrices += prePrice;
+            });
+            // $("#product_integral").text(percents);
+            $("#product_total").text(prices / 100);
+            // $("#product_save").text((prePrices - prices) / 100);
+            return prices / 100;
+        }
+
+        totalPrice();
+    });
+</script>
+</body>
+</html>

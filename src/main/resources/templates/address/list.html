@@ -67,7 +67,7 @@
 							<tbody>
 								<tr th:each="address:${addresses}">
 									<td th:text="${address.addressId}"></td>
-									<td>[[${address.userName}]]</td>
+									<td><a th:href="@{/addressesDetail/}+${address.userName}">[[${address.userName}]]</a></td>
 									<td th:text="${address.addressDetail}"></td>
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/addressUpdate/}+${address.addressId}">编辑</a>

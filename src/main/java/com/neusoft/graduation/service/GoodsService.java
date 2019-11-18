@@ -14,36 +14,75 @@ import java.util.List;
 public interface GoodsService {
     /**
      * 获取商品列表信息
+     *
      * @return
      */
     List<Goods> queryAllGoods();
 
     /**
+     * 获取商品列表信息（不包含Category）
+     * @return
+     */
+    List<Goods> queryAllGoodsExceptionCategory();
+
+    /**
      * 进价升序获取商品列表信息
+     *
      * @return
      */
     List<Goods> queryAllGoodsByOriginalPriceAsc();
 
     /**
      * 进价降序获取商品列表信息
+     *
      * @return
      */
     List<Goods> queryAllGoodsByOriginalPriceDesc();
 
     /**
      * 售价升序获取商品列表信息
+     *
      * @return
      */
     List<Goods> queryAllGoodsBysellPriceAsc();
 
     /**
      * 售价降序获取商品列表信息
+     *
      * @return
      */
     List<Goods> queryAllGoodsBysellPriceDesc();
 
     /**
+     * 库存升序获取商品列表信息
+     *
+     * @return
+     */
+    List<Goods> queryAllGoodsByInventoryAsc();
+
+    /**
+     * 库存降序获取商品列表信息
+     *
+     * @return
+     */
+
+    List<Goods> queryAllGoodsByInventoryDesc();
+
+    /**
+     * 创建日期升序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByCreateDateAsc();
+
+    /**
+     * 创建日期降序获取商品列表信息
+     * @return
+     */
+    List<Goods> queryAllGoodsByCreateDateDesc();
+
+    /**
      * 根据商品id查询商品信息
+     *
      * @param id
      * @return
      */
@@ -51,6 +90,7 @@ public interface GoodsService {
 
     /**
      * 根据商品名称查询商品信息
+     *
      * @param name
      * @return
      */
@@ -58,6 +98,7 @@ public interface GoodsService {
 
     /**
      * 根据类别名称查询商品信息
+     *
      * @param name
      * @return
      */
@@ -65,6 +106,7 @@ public interface GoodsService {
 
     /**
      * 根据商品名类别名模糊查询
+     *
      * @param likeName
      * @return
      */
@@ -72,6 +114,7 @@ public interface GoodsService {
 
     /**
      * 添加商品
+     *
      * @param goods
      * @return
      */
@@ -79,6 +122,7 @@ public interface GoodsService {
 
     /**
      * 更新商品信息
+     *
      * @param goods
      * @return
      */
@@ -86,6 +130,7 @@ public interface GoodsService {
 
     /**
      * 删除商品
+     *
      * @param id
      * @return
      */

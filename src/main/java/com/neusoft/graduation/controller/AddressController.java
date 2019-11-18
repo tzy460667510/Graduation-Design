@@ -33,6 +33,16 @@ public class AddressController {
         return "address/list";
     }
 
+    @GetMapping("/addressesDetail/{userName}")
+    public String toDetailPage(@PathVariable("userName") String name,Model model){
+        List<Address> addresseslist = addressService.queryAddressByUserName(name);
+        Address address = new Address();
+        address=addresseslist.get(0);
+        model.addAttribute("address",address);
+        model.addAttribute("addresses",addresseslist);
+        return "address/detail";
+    }
+
     //来到地址添加页面
     @GetMapping("/addressAdd")
     public String toAddPage(Model model) {
@@ -40,6 +50,7 @@ public class AddressController {
         model.addAttribute("addresses",addresses);
         return "address/add";
     }
+
 
     //地址添加
     @PostMapping("/addressAdd")

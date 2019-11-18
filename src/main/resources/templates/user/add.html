@@ -53,33 +53,40 @@
 				<div th:replace="commons/bar::#sidebar(activeUri='users')"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<!--需要区分是员工修改还是添加；-->
+
 					<form th:action="@{/userAdd}" method="post">
 						<div class="form-group">
 							<label>平台昵称</label>
-							<input name="userName" type="text" class="form-control" placeholder="请输入平台昵称">
+							<p style="color: red" th:text="${msg1}" th:if="${not #strings.isEmpty(msg1)}"></p>
+							<p style="color: red" th:text="${msg2}" th:if="${not #strings.isEmpty(msg2)}"></p>
+							<input name="userName" type="text" class="form-control"
+								   placeholder="请输入平台昵称" >
 						</div>
                         <div class="form-group">
                             <label>密码</label>
+							<p style="color: red" th:text="${msg3}" th:if="${not #strings.isEmpty(msg3)}"></p>
                             <input name="password" type="text" class="form-control" placeholder="请输入密码">
                         </div>
 						<div class="form-group">
 							<label>真实姓名</label>
+							<p style="color: red" th:text="${msg4}" th:if="${not #strings.isEmpty(msg4)}"></p>
 							<input name="realName" type="text" class="form-control" placeholder="请输入真实姓名">
 						</div>
 						<div class="form-group">
 							<label>地址</label>
+							<p style="color: red" th:text="${msg5}" th:if="${not #strings.isEmpty(msg5)}"></p>
 							<input name="address" type="text" class="form-control" placeholder="请输入地址">
 						</div>
 						<div class="form-group">
 							<label>邮箱</label>
+							<p style="color: red" th:text="${msg6}" th:if="${not #strings.isEmpty(msg6)}"></p>
 							<input name="email" type="email" class="form-control" placeholder="请输入邮箱">
 						</div>
 						<div class="form-group">
 							<label>电话</label>
+							<p style="color: red" th:text="${msg7}" th:if="${not #strings.isEmpty(msg7)}"></p>
 							<input name="phone" type="text" class="form-control" placeholder="请输入电话">
 						</div>
-<!--                        <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>-->
 						<button type="submit" class="btn btn-primary">添加</button>
 					</form>
 				</main>
