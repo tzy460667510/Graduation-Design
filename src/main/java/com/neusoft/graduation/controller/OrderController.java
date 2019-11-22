@@ -1,20 +1,13 @@
 package com.neusoft.graduation.controller;
 
-import com.neusoft.graduation.entity.Address;
-import com.neusoft.graduation.entity.Goods;
-import com.neusoft.graduation.entity.Order;
-import com.neusoft.graduation.entity.User;
-import com.neusoft.graduation.service.AddressService;
-import com.neusoft.graduation.service.GoodsService;
-import com.neusoft.graduation.service.OrderService;
-import com.neusoft.graduation.service.UserService;
+import com.neusoft.graduation.entity.*;
+import com.neusoft.graduation.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName OrderController
@@ -33,6 +26,8 @@ public class OrderController {
     private GoodsService goodsService;
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private ShoppingService shoppingService;
 
     @GetMapping("/orders")
     public String orderList(Model model) {
@@ -61,6 +56,7 @@ public class OrderController {
 
     /**
      * 购买数量降序
+     *
      * @param model
      * @param map
      * @return
@@ -76,6 +72,7 @@ public class OrderController {
 
     /**
      * 购买总价升序
+     *
      * @param model
      * @param map
      * @return
@@ -91,6 +88,7 @@ public class OrderController {
 
     /**
      * 购买总价降序
+     *
      * @param model
      * @param map
      * @return
@@ -105,36 +103,44 @@ public class OrderController {
     }
 
     @GetMapping("/orderTotalByStatue1")
-    public String orderTotalByStatue1(Model model, Map<String, Object> map){
+    public String orderTotalByStatue1(Model model, Map<String, Object> map) {
         System.out.println("进入未发货排序界面了");
         List<Order> orders = orderService.queryOrderByStatue(1);
         System.out.println(orders);
-        model.addAttribute("orders",orders);
+        model.addAttribute("orders", orders);
         map.put("msg3", "未发货");
         return "order/list";
     }
+
     @GetMapping("/orderTotalByStatue2")
-    public String orderTotalByStatue2(Model model, Map<String, Object> map){
-        System.out.println("进入已发货排序界面了");
+    public String orderTotalByStatue2(Model model, Map<String, Object> map) {
         List<Order> orders = orderService.queryOrderByStatue(2);
-        model.addAttribute("orders",orders);
+        model.addAttribute("orders", orders);
         map.put("msg3", "已发货");
         return "order/list";
     }
+
     @GetMapping("/orderTotalByStatue3")
-    public String orderTotalByStatue3(Model model, Map<String, Object> map){
-        System.out.println("进入未评价排序界面了");
+    public String orderTotalByStatue3(Model model, Map<String, Object> map) {
         List<Order> orders = orderService.queryOrderByStatue(3);
-        model.addAttribute("orders",orders);
-        map.put("msg3", "未评价");
+        model.addAttribute("orders", orders);
+        map.put("msg3", "请求退货");
         return "order/list";
     }
+
     @GetMapping("/orderTotalByStatue4")
-    public String orderTotalByStatue4(Model model, Map<String, Object> map){
-        System.out.println("进入已评价排序界面了");
+    public String orderTotalByStatue4(Model model, Map<String, Object> map) {
         List<Order> orders = orderService.queryOrderByStatue(4);
-        model.addAttribute("orders",orders);
-        map.put("msg3", "已评价");
+        model.addAttribute("orders", orders);
+        map.put("msg3", "已退货");
+        return "order/list";
+    }
+
+    @GetMapping("/orderTotalByStatue5")
+    public String orderTotalByStatue5(Model model, Map<String, Object> map) {
+        List<Order> orders = orderService.queryOrderByStatue(5);
+        model.addAttribute("orders", orders);
+        map.put("msg3", "已收货");
         return "order/list";
     }
 
@@ -147,6 +153,7 @@ public class OrderController {
 
     /**
      * 订单添加
+     *
      * @param order
      * @param map
      * @return
@@ -207,7 +214,6 @@ public class OrderController {
     }
 
     /**
-     *
      * @param name
      * @param model
      * @return
@@ -255,9 +261,70 @@ public class OrderController {
         return "redirect:/orders";
     }
 
-    @GetMapping("/client/addOrder")
-    public String shoppingToAddOrder(){
+    @GetMapping("orderUpdateStatue/{orderId}")
+    public String updateOrdersStatue(@PathVariable("orderId") Integer id){
+        Order order = orderService.queryOrderByOrderId(id);
+        int statue = order.getStatue();
+        if (statue==1){
+            statue=2;
+        }else if(statue==3){
+            statue=4;
+        }
+        order.setStatue(statue);
+        orderService.updateOrderByOrderId(order);
+        return "redirect:/orders";
+    }
 
-        return null;
+    @GetMapping("client/orderUpdateStatue/{orderId}")
+    public String clientUpdateOrdersStatue(@PathVariable("orderId") Integer id,Model model){
+        Order order = orderService.queryOrderByOrderId(id);
+        int statue = order.getStatue();
+        if (statue==5){
+            statue=3;
+        }else if(statue==2){
+            statue=5;
+        }
+        order.setStatue(statue);
+        orderService.updateOrderByOrderId(order);
+        String userName = order.getUserName();
+        List<Order> orders = orderService.queryOrderByUserName(userName);
+        model.addAttribute("orders",orders);
+        return "client/order";
+    }
+
+    @GetMapping("/client/addOrder")
+    public String shoppingToAddOrder(@RequestParam("loginUser") String name) {
+        System.out.println(name);
+        List<Shopping> shoppings = shoppingService.queryShoppingByUserName(name);
+        for (int i = 0; i < shoppings.size(); i++) {
+            Goods goods = goodsService.queryGoodsByGoodsName(shoppings.get(i).getGoodsName());
+            int inventory = goods.getInventory();
+            if (shoppings.get(i).getGoodsCount() < inventory) {
+                Order order = new Order();
+                User user = userService.queryUserByUserName(name);
+                order.setUserId(userService.queryUserByUserName(name).getUserId());
+                order.setUserName(name);
+                order.setGoodsId(shoppings.get(i).getGoodsId());
+                order.setGoodsName(shoppings.get(i).getGoodsName());
+                order.setSellPrice(shoppings.get(i).getSellPrice());
+                order.setGoodsCount(shoppings.get(i).getGoodsCount());
+                order.setOrderTotal(shoppings.get(i).getShoppingTotal());
+                order.setPhone(user.getPhone());
+                order.setAddressDetail(user.getAddress());
+                orderService.addOrder(order);
+                goods.setInventory(inventory - shoppings.get(i).getGoodsCount());
+                goodsService.updateGoodsByGoodsId(goods);
+                shoppings.get(i).setStatue(2);
+                shoppingService.updateShoppingByShoppingId(shoppings.get(i));
+            }
+        }
+        return "client/shopping";
+    }
+
+    @GetMapping("client/myOrderList/{loginUser}")
+    public String myOrderList(@PathVariable("loginUser")String name, Model model) {
+        List<Order> orders = orderService.queryOrderByUserName(name);
+        model.addAttribute("orders",orders);
+        return "client/order";
     }
 }

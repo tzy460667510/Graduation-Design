@@ -1,15 +1,15 @@
 package com.neusoft.graduation.controller;
 
 import com.neusoft.graduation.component.DesEncryption;
-import com.neusoft.graduation.dao.UserDao;
+import com.neusoft.graduation.component.PhoneCode;
 import com.neusoft.graduation.entity.User;
+import com.neusoft.graduation.service.AddressService;
 import com.neusoft.graduation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +26,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private DesEncryption desEncryption;
+    @Autowired
+    private AddressService addressService;
 
     //查询所有用户返回列表页面
     @GetMapping("/users")
@@ -44,8 +46,9 @@ public class UserController {
 
     @GetMapping("/userDetail/{userName}")
     public String toDetailPage(@PathVariable("userName") String name, Model model) {
-        System.out.println(name);
         User user = userService.queryUserByUserName(name);
+        String despassword = desEncryption.encryptBasedDes(user.getPassword());
+        user.setPassword(despassword);
         System.out.println(user);
         model.addAttribute("user", user);
         return "user/detail";
@@ -103,20 +106,57 @@ public class UserController {
     //用户修改；需要提交userId；
     @PutMapping("/userUpdate")
     public String updateUser(User user) {
+        User userbefore = userService.queryUserByUserId(user.getUserId());
+        user.setPassword(userbefore.getPassword());
         System.out.println("修改后的用户数据：" + user);
         userService.updateUserByUserId(user);
         return "redirect:/users";
     }
 
+    //来到修改页面，查出当前用户，在页面回显
+    @GetMapping("/userReset/{userId}")
+    public String userReset(@PathVariable("userId") Integer id, Model model) {
+        User user = userService.queryUserByUserId(id);
+        String code = PhoneCode.code;
+        PhoneCode.getPhonemsg(user.getPhone());
+        System.out.println(code);
+        user.setPassword(code);
+        userService.updateUserByUserId(user);
+        model.addAttribute("user", user);
+        return "redirect:/users";
+    }
+
     //用户的删除
     @DeleteMapping("/user/{userId}")
-    public String deleteEmployee(@PathVariable("userId") Integer id) {
+    public String deleteEmployee(@PathVariable("userId") Integer id, Map<String, Object> map) {
         userService.deleteUserByUserId(id);
         return "redirect:/users";
     }
 
-    @GetMapping("")
-    public String toClientUser() {
-        return null;
+    @GetMapping("/clent/myDetail/{loginUser}")
+    public String toClientUser(@PathVariable("loginUser") String name, Model model) {
+        User user = userService.queryUserByUserName(name);
+        model.addAttribute("user", user);
+        return "client/user";
+    }
+
+    @GetMapping("/client/toUpdateMyDetail/{userId}")
+    public String toUserDetailUpdate(@PathVariable("userId") Integer id, Model model, Map<String, Object> map) {
+        User user = userService.queryUserByUserId(id);
+        model.addAttribute("user", user);
+        map.put("msg", "用户修改");
+        return "client/user";
+    }
+
+    @GetMapping("/client/UpdateMyDetail")
+    public String updateUserDetail(User user1, Model model) {
+        User user = userService.queryUserByUserName(user1.getUserName());
+        user.setUserName(user1.getUserName());
+        user.setPassword(user1.getPassword());
+        user.setRealName(user1.getRealName());
+        user.setEmail(user1.getEmail());
+        user.setPhone(user1.getPhone());
+        userService.updateUserByUserId(user);
+        return "client/user";
     }
 }

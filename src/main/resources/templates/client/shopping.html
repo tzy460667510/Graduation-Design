@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>蔚蓝网购物车页面</title>
+    <title>小菜菜网购物车页面</title>
     <link th:href="@{/asserts/css/global.css}" rel="stylesheet"/>
     <link th:href="@{/asserts/css/layout.css}" rel="stylesheet"/>
     <link th:href="@{/asserts/css/template.css}" rel="stylesheet"/>
@@ -17,41 +17,39 @@
         </div>
         <div class="header_top_right">
             <ul>
-                <li><a href="#" target="_self">客户服务</a></li>
+                <li><a href="tencent://message/?uin=2810686942&Site=http://vps.shuidazhe.com&Menu=yes">QQ在线联系</a></li>
                 <li>|</li>
-                <li id="menu"><a href="#" target="_self">新手入门</a> <img src="images/arrow_down.gif" alt="arrow"/>
-                    <div id="dd_menu_top_down">
-                        <a href="#" target="_self">购物保障</a><br/>
-                        <a href="#" target="_self">购物流程</a><br/>
-                        <a href="#" target="_self">会员介绍</a><br/>
-                        <a href="#" target="_self">常见问题</a><br/>
-                    </div>
+                <li><a th:if="${session.loginUser} ne null" th:href="@{/client/myOrderList/}+${session.loginUser}"
+                       target="_self">我的订单</a></li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">我的订单</a>
                 </li>
                 <li>|</li>
-                <li><a href="#" target="_self">礼品卡</a></li>
+                <li><a th:if="${session.loginUser} ne null" th:href="@{/clent/myDetail/}+${session.loginUser}"
+                       target="_parent">我的账户</a></li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">我的账户</a>
+                </li>
                 <li>|</li>
-                <li><a href="#" target="_self">我的订单</a></li>
-                <li>|</li>
-                <li><a href="#" target="_self">我的账户</a></li>
-                <li>|</li>
-                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">购物车</a></li>
-                <li><a th:href="@{/ShoppingDetail/}+${session.loginUser}" target="_parent">购物车</a></li>
-                <li><img src="images/header_shop.gif" alt="shopping"/></li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">购物车</a>
+                </li>
+                <li><a th:if="${session.loginUser} ne null" th:href="@{/ShoppingDetail/}+${session.loginUser}"
+                       target="_parent">购物车</a></li>
             </ul>
         </div>
     </div>
 </header>
 <div class="header_middle">
     <div class="logo"><img th:src="@{/asserts/img/sitelogo.jpg}" alt="logo"/></div>
-    <div class="search"><input type="text" placeholder="请输入搜索关键字"><input type="button"></div>
+    <div class="search">
+        <form th:action="@{/client/searchGoods/}+${session.loginUser}">
+            <input name="goodsSearch" type="text" placeholder="请输入搜索关键字"/>
+            <input type="submit" style="background: #3abbeb"  value="搜索">
+        </form>
+    </div>
 </div>
 <nav id="nav">
     <ul>
-        <li><a href="#"> 全部商品分类</a></li>
-        <li><a th:href="@{/client}"> 首页</a></li>
-        <li><a href="#"> 图书</a></li>
-        <li><a href="#"> 特价</a></li>
-        <li><a href="#"> 团购</a></li>
+        <li style="width:400px"><a th:href="@{/client}"> 全部商品分类</a></li>
+        <li style="width:400px"><a th:href="@{/client}"> 首页</a></li>
     </ul>
 </nav>
 <!--中间部分开始-->
@@ -75,18 +73,26 @@
     </table>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTableProduct" th:if="${shoppings} ne null">
         <tr class="shopping_product_list" id="shoppingProduct_01"
-        th:each="shopping:${shoppings}">
+            th:each="shopping:${shoppings}">
             <td class="shopping_product_list_1"><a href="#" class="blue">[[${shopping.goodsName}]]</a></td>
-            <td class="shopping_product_list_5"><input type="text" th:value="${shopping.goodsCount}"/></td>
+            <td class="shopping_product_list_5">
+                <a th:href="@{/ShoppingDetailMinus(loginUser=${session.loginUser},shoppingId=${shopping.shoppingId})}"><button>-1</button></a>
+                <input type="text" readonly="readonly"  th:value="${shopping.goodsCount}"/>
+                <a th:href="@{/ShoppingDetailPlus(loginUser=${session.loginUser},shoppingId=${shopping.shoppingId})}"><button>+1</button></a>
+            </td>
             <td class="shopping_product_list_4">￥<label>[[${shopping.sellPrice}]]</label></td>
             <td class="shopping_product_list_2"><label>[[${shopping.shoppingTotal}]]</label></td>
-            <td class="shopping_product_list_6"><a th:href="@{/client/deleteShoppingByGoodsName(loginUser=${session.loginUser},goodsName=${shopping.goodsName})}" class="blue">删除</a></td>
+            <td class="shopping_product_list_6"><a
+                    th:href="@{/client/deleteShoppingByGoodsName(loginUser=${session.loginUser},goodsName=${shopping.goodsName})}"
+                    class="blue">删除</a></td>
         </tr>
     </table>
     <div class="shopping_list_end" th:if="${shoppings} ne null">
-        <div><a id="removeAllProduct" th:href="@{/client/deleteShoppingByUserName(loginUser=${session.loginUser})}">清空购物车</a></div>
+        <div><a id="removeAllProduct" th:href="@{/client/deleteShoppingByUserName(loginUser=${session.loginUser})}">清空购物车</a>
+        </div>
         <ul>
-            <li class="shopping_list_end_1"><input name="" type="image" th:src="@{/asserts/img/shopping_balance.gif}"/></li>
+            <li class="shopping_list_end_1"><a th:href="@{/client/addOrder(loginUser=${session.loginUser})}"><input
+                    name="" type="image" th:src="@{/asserts/img/shopping_balance.gif}"/></a></li>
             <li class="shopping_list_end_2">￥<label id="product_total"></label></li>
             <li class="shopping_list_end_3">商品金额总计：</li>
         </ul>
@@ -101,8 +107,9 @@
         | <a href="#" target="_parent" class="footer_dull_red">货到付款</a> | <a href="#" target="_parent"
                                                                              class="footer_dull_red">品种最全</a> | <a
                 href="#" target="_parent" class="footer_dull_red">免费退换</a></div>
-    <div class="footer_end">Copyright (C) 蔚蓝网 2006-2016, All Rights Reserved <img src="images/validate.gif" alt="版权"
-                                                                                  style="vertical-align:middle;"/>
+    <div class="footer_end">Copyright (C) 小菜菜网 2006-2016, All Rights Reserved <img th:src="@{/asserts/img/validate.gif}"
+                                                                                   alt="版权"
+                                                                                   style="vertical-align:middle;"/>
         京ICP证100488号 出版物经营许可证 京批100160号
     </div>
 </footer>
@@ -126,7 +133,7 @@
             $("#myTableProduct").find("tr").each(function (i, ele) {
                 var num = $(ele).find(".shopping_product_list_5").find("input").val();
                 // percents += parseInt($(ele).find(".shopping_product_list_2").text()) * num;
-                var price = parseInt($(ele).find(".shopping_product_list_2").find("label").text().replace(".", "")) *10;
+                var price = parseInt($(ele).find(".shopping_product_list_2").find("label").text().replace(".", "")) * 10;
                 prices += price;
                 var prePrice = parseInt($(ele).find(".shopping_product_list_3").find("label").text().replace(".", "")) * num;
                 prePrices += prePrice;

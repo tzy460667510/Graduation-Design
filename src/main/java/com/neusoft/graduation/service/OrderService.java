@@ -96,4 +96,10 @@ public interface OrderService {
      * @return
      */
     int deleteOrderByOrderId(int id);
+    /**
+     * 按年月查订单
+     * @param
+     * @return
+     */
+    List<Order> queryOrderByYearMonth();
 }

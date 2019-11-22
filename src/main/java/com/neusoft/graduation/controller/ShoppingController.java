@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -41,7 +40,7 @@ public class ShoppingController {
     public String toShoppingPage(@PathVariable("loginUser") String name, HttpSession session,
                                  Model model) {
         List<Shopping> shoppings = shoppingService.queryShoppingByUserName(name);
-        if(!shoppings.isEmpty()){
+        if (!shoppings.isEmpty()) {
             model.addAttribute("shoppings", shoppings);
             session.setAttribute("loginUser", name);
         }
@@ -58,6 +57,7 @@ public class ShoppingController {
         User user = userService.queryUserByUserName(name);
         shopping.setGoodsId(goods.getGoodsId());
         shopping.setUserName(name);
+        shopping.setUserId(user.getUserId());
         shopping.setGoodsName(goods.getGoodsName());
         shopping.setGoodsCount(count);
         shopping.setSellPrice(goods.getSellPrice());
@@ -65,19 +65,19 @@ public class ShoppingController {
         boolean flag = false;
         Shopping shopping1 = null;
         for (int i = 0; i < shoppings.size(); i++) {
-            if (shoppings.get(i).getGoodsName().equals(goods.getGoodsName())){
-                int goodsCount = shoppings.get(i).getGoodsCount()+count;
-                double totalPrice = shoppings.get(i).getSellPrice()*goodsCount;
+            if (shoppings.get(i).getGoodsName().equals(goods.getGoodsName())) {
+                int goodsCount = shoppings.get(i).getGoodsCount() + count;
+                double totalPrice = shoppings.get(i).getSellPrice() * goodsCount;
                 shoppings.get(i).setShoppingTotal(totalPrice);
                 shoppings.get(i).setGoodsCount(goodsCount);
                 shopping1 = shoppings.get(i);
-                flag=true;
+                flag = true;
             }
         }
-        if (flag){
+        if (flag) {
             shoppingService.updateShoppingByShoppingId(shopping1);
-        }else{
-            shopping.setShoppingTotal(shopping.getGoodsCount()*shopping.getSellPrice());
+        } else {
+            shopping.setShoppingTotal(shopping.getGoodsCount() * shopping.getSellPrice());
             shoppingService.addShopping(shopping);
         }
         List<Shopping> shoppings1 = shoppingService.queryShoppingByUserName(name);
@@ -86,15 +86,51 @@ public class ShoppingController {
     }
 
     @GetMapping("/client/deleteShoppingByGoodsName")
-    public String ShoppingDeleteOneGoods(Model model,String loginUser,String goodsName){
-        shoppingService.deleteShoppingByGoodsName(goodsName,loginUser);
+    public String ShoppingDeleteOneGoods(Model model, String loginUser, String goodsName) {
+        shoppingService.deleteShoppingByGoodsName(goodsName, loginUser);
         List<Shopping> shoppings = shoppingService.queryShoppingByUserName(loginUser);
         model.addAttribute("shoppings", shoppings);
         return "client/shopping";
     }
 
+    @GetMapping("/ShoppingDetailMinus")
+    public String ShoppingDetailMinus(String loginUser, Integer shoppingId, Model model, HttpSession session) {
+        System.out.println(shoppingId);
+        Shopping shopping = shoppingService.queryShoppingByShoppingId(shoppingId);
+        int goodsCount = shopping.getGoodsCount();
+        if (goodsCount == 0) {
+            shoppingService.deleteShoppingByGoodsName(shopping.getGoodsName(), shopping.getUserName());
+        } else {
+            shopping.setGoodsCount(goodsCount - 1);
+            shopping.setShoppingTotal(shopping.getGoodsCount() * shopping.getSellPrice());
+            shoppingService.updateShoppingByShoppingId(shopping);
+        }
+        List<Shopping> shoppings = shoppingService.queryShoppingByUserName(loginUser);
+        if (!shoppings.isEmpty()) {
+            model.addAttribute("shoppings", shoppings);
+            session.setAttribute("loginUser", loginUser);
+        }
+        return "client/shopping";
+    }
+
+    @GetMapping("/ShoppingDetailPlus")
+    public String ShoppingDetailPlus(String loginUser, Integer shoppingId, Model model, HttpSession session) {
+        System.out.println(shoppingId);
+        Shopping shopping = shoppingService.queryShoppingByShoppingId(shoppingId);
+        int goodsCount = shopping.getGoodsCount();
+        shopping.setGoodsCount(goodsCount + 1);
+        shopping.setShoppingTotal(shopping.getGoodsCount() * shopping.getSellPrice());
+        shoppingService.updateShoppingByShoppingId(shopping);
+        List<Shopping> shoppings = shoppingService.queryShoppingByUserName(loginUser);
+        if (!shoppings.isEmpty()) {
+            model.addAttribute("shoppings", shoppings);
+            session.setAttribute("loginUser", loginUser);
+        }
+        return "client/shopping";
+    }
+
     @GetMapping("/client/deleteShoppingByUserName")
-    public String ShoppingDeleteByUserName(String loginUser){
+    public String ShoppingDeleteByUserName(String loginUser) {
         System.out.println(loginUser);
         shoppingService.deleteShoppingByUserName(loginUser);
         return "client/shopping";

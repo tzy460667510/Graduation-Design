@@ -32,6 +32,9 @@
     <label class="sr-only" th:text="#{login.password}">Password</label>
     <input type="password" name="password" class="form-control" placeholder="Password"
            th:placeholder="#{login.password}" required="">
+    <label class="sr-only" th:text="#{login.otp}">Otp</label>
+    <input type="text" name="otp" class="form-control" placeholder="Username" th:placeholder="#{login.otp}"
+           required="" autofocus="">
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox" value="remember-me"/> [[#{login.remember}]]

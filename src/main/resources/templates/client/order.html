@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>小菜菜网</title>
+    <title>我的订单页面</title>
     <link th:href="@{/asserts/css/global.css}" rel="stylesheet"/>
     <link th:href="@{/asserts/css/layout.css}" rel="stylesheet"/>
     <link th:href="@{/asserts/css/template.css}" rel="stylesheet"/>
 </head>
+
 <body>
 <header id="header">
     <div class="header_top">
@@ -46,57 +47,61 @@
     </ul>
 </nav>
 <!--中间部分开始-->
-<section id="main">
-    <div class="current_place">您现在的位置：<a th:href="@{/client}">小菜菜网</a> &gt;&gt; [[${goods.categoryName}]] &gt; [[${goods.goodsName}]]</div>
-    <div id="catList">
-        <!--图书商品分类开始-->
-        <div class="book_sort">
-            <div class="book_sort_bg"><img th:src="@{/asserts/img/dd_book_cate_icon.gif}"/> 商品分类</div>
-            <div th:each="category:${categories}">
-                <div class="book_cate">
-                    <a th:href="@{/client/toproductlistbycategory/}+${category.categoryName}">[[${category.categoryName}]]</a>
-                </div>
-            </div>
+<div id="main">
+    <div>&nbsp&nbsp&nbsp全场免运费活动中</div>
+</div>
+<div class="shopping_list_top" th:if="${orders} ne null">您已选购以下商品</div>
+<div class="shopping_list_border">
+    <div class='empty_product' th:if="${orders} eq null">
+        <div>您还没有订单，<a th:href="@{/client}">去看看吧>></a>
         </div>
     </div>
-    <!--右侧内容开始-->
-    <div id="product_storyList">
-        <!--图书排列开始-->
-        <div id="product_storyList_content" class="product_storyList_content">
-            <div id="storyBooksssss"><!--使用javaScript显示图书列表--></div>
-            <!--列表开始-->
-            <div class="product_storyList_content_left"></div>
-            <div class="product_storyList_content_right">
-                <form name="shoppingdetail" th:action="@{/clientShoppingAdd/}+${session.loginUser}" method="post">
-                    <ul>
-                        <li class="product_storyList_content_dash">
-                            <a href="#" class="blue_14">[[${goods.goodsName}]]</a>
-                        </li>
-                        <li>
-                            <img th:src="@{${goods.goodsImg}}" alt="商品图片"/>
-                        </li>
-                        <li>生鲜名称：[[${goods.goodsName}]]<input type="hidden" name="goodsName" th:value="${goods.goodsName}"/></li>
-                        <li>类别：[[${goods.categoryName}]]</li>
-                        <li>[[${goods.details}]]</li>
-                        <li>
-                            <dl class="product_content_dd">
-                                <dd>
-                                    <input th:if="${session.loginUser} ne null" type="number" name="goodsCount" oninput = "value=value.replace(/[^\d]/g,'')" placeholder="请输入购买数量" value="1">
-                                    <input th:if="${session.loginUser} ne null" type="submit" value="添加到购物车">
-                                </dd>
-                                <dd>库存量：[[${goods.inventory}]]斤</dd>
-                                <dd class="footer_dull_red"><span>￥[[${goods.sellPrice}]]</span></dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </form>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" th:if="${orders} ne null">
+        <tr class="shopping_list_title">
+            <td class="shopping_list_title_1">商品名</td>
+            <td class="shopping_list_title_5">数量</td>
+            <td class="shopping_list_title_4">小菜菜价</td>
+            <td class="shopping_list_title_2">总价</td>
+            <td class="shopping_list_title_2">收货姓名</td>
+            <td class="shopping_list_title_2">收货地址</td>
+            <td class="shopping_list_title_4">订单状态</td>
+            <td class="shopping_list_title_4">下单时间</td>
+            <td class="shopping_list_title_4">操作</td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTableProduct" th:if="${orders} ne null">
+        <tr class="shopping_product_list" id="shoppingProduct_01"
+        th:each="order:${orders}">
+            <td class="shopping_product_list_1"><a th:href="@{/clientGoodsDetailByGoodsName/}+${order.goodsName}" class="blue">[[${order.goodsName}]]</a></td>
+            <td class="shopping_product_list_5">[[${order.goodsCount}]]</td>
+            <td class="shopping_product_list_4">￥<label>[[${order.sellPrice}]]</label></td>
+            <td class="shopping_product_list_2"><label>[[${order.orderTotal}]]</label></td>
+            <td class="shopping_list_title_2">[[${order.realName}]]</td>
+            <td class="shopping_list_title_2">[[${order.addressDetail}]]</td>
+            <td class="shopping_product_list_2">
+                <label th:if="${order.statue} eq '1'" th:text="${order.statue}?'未发货'">[[${order.statue}]]</label>
+                <label th:if="${order.statue} eq '2'" th:text="${order.statue}?'已发货'">[[${order.statue}]]</label>
+                <label th:if="${order.statue} eq '3'" th:text="${order.statue}?'请求退货'">[[${order.statue}]]</label>
+                <label th:if="${order.statue} eq '4'" th:text="${order.statue}?'已退货'">[[${order.statue}]]</label>
+                <label th:if="${order.statue} eq '5'" th:text="${order.statue}?'已收货'">[[${order.statue}]]</label>
+            </td>
+            <td class="shopping_list_title_4">[[${order.createDate}]]</td>
+            <td class="shopping_list_title_4">
+                <a th:if="${order.statue} eq '2'" th:href="@{/client/orderUpdateStatue/}+${order.orderId}">
+                    <button type="button" style="height:40px;width: 75px;font-weight:bold;background-color: #34ce57">确定收货
+                    </button>
+                </a>
+                <a th:if="${order.statue} eq '5'" th:href="@{/clent/orderUpdateStatue/}+${order.orderId}">
+                    <button type="button" style="height:40px;width: 75px;font-weight:bold;background-color: #1eb2e9">请求退货
+                    </button>
+                </a>
+            </td>
+        </tr>
+    </table>
 
-            </div>
+</div>
+</div>
 
-        </div>
-    </div>
-    <!--右侧内容结束-->
-</section>
 <!--网站版权部分开始-->
 <footer id="footer">
     <div class="footer_top"><a href="#" target="_parent" class="footer_dull_red">正版保障</a> | <a href="#" target="_parent"
@@ -109,9 +114,6 @@
         京ICP证100488号 出版物经营许可证 京批100160号
     </div>
 </footer>
-
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/product.js"></script>
-<script src="js/header.js"></script>
+<script th:src="@{/asserts/js/jquery-1.12.4.js}"></script>
 </body>
 </html>

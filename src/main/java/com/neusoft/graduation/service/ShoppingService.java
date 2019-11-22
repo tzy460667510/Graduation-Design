@@ -19,6 +19,12 @@ public interface ShoppingService {
      */
     List<Shopping> queryShoppingByUserName(String name);
     /**
+     * 根据id查找购物车
+     * @param id
+     * @return
+     */
+    Shopping queryShoppingByShoppingId(int id);
+    /**
      * 添加购物车
      * @param shopping
      * @return

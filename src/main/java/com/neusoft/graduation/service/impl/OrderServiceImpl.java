@@ -84,4 +84,9 @@ public class OrderServiceImpl implements OrderService {
     public int deleteOrderByOrderId(int id) {
         return orderDao.deleteOrderByOrderId(id);
     }
+
+    @Override
+    public List<Order> queryOrderByYearMonth() {
+        return orderDao.queryOrderByYearMonth();
+    }
 }

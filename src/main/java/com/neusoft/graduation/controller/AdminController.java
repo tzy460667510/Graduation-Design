@@ -43,6 +43,15 @@ public class AdminController {
         return "admin/detail";
     }
 
+    @GetMapping("/adminDetailBySeesion/{loginUser}")
+    public String toDetailPage2(@PathVariable("loginUser") String name, Model model) {
+        System.out.println(name);
+        Admin admin = adminService.queryAdminByAdminName(name);
+        System.out.println(admin);
+        model.addAttribute("admin", admin);
+        return "admin/detail";
+    }
+
     //来到管理员添加页面
     @GetMapping("/adminAdd")
     public String toAddPage(Model model) {

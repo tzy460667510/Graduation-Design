@@ -17,26 +17,16 @@
         </div>
         <div class="header_top_right">
             <ul>
-                <li><a href="#" target="_self">客户服务</a></li>
+                <li><a href="tencent://message/?uin=2810686942&Site=http://vps.shuidazhe.com&Menu=yes">QQ在线联系</a></li>
                 <li>|</li>
-                <li id="menu"><a href="#" target="_self">新手入门</a> <img src="images/arrow_down.gif" alt="arrow"/>
-                    <div id="dd_menu_top_down">
-                        <a href="#" target="_self">购物保障</a><br/>
-                        <a href="#" target="_self">购物流程</a><br/>
-                        <a href="#" target="_self">会员介绍</a><br/>
-                        <a href="#" target="_self">常见问题</a><br/>
-                    </div>
-                </li>
+                <li><a th:if="${session.loginUser} ne null" th:href="@{/client/myOrderList/}+${session.loginUser}" target="_self">我的订单</a></li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">我的订单</a></li>
                 <li>|</li>
-                <li><a href="#" target="_self">礼品卡</a></li>
-                <li>|</li>
-                <li><a href="#" target="_self">我的订单</a></li>
-                <li>|</li>
-                <li><a href="#" target="_self">我的账户</a></li>
+                <li><a th:if="${session.loginUser} ne null" th:href="@{/clent/myDetail/}+${session.loginUser}" target="_parent">我的账户</a></li>
+                <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">我的账户</a></li>
                 <li>|</li>
                 <li><a th:if="${session.loginUser} eq null" th:href="@{/ShoppingDetail/ReturnIndex}" target="_parent">购物车</a></li>
-                <li><a th:href="@{/ShoppingDetail/}+${session.loginUser}" target="_parent">购物车</a></li>
-                <li><img src="images/header_shop.gif" alt="shopping"/></li>
+                <li><a th:if="${session.loginUser} ne null" th:href="@{/ShoppingDetail/}+${session.loginUser}" target="_parent">购物车</a></li>
             </ul>
         </div>
     </div>
@@ -52,11 +42,8 @@
 </div>
 <nav id="nav">
     <ul>
-        <li><a href="#"> 全部商品分类</a></li>
-        <li><a href="#"> 首页</a></li>
-        <li><a href="#"> 图书</a></li>
-        <li><a href="#"> 图书</a></li>
-        <li><a href="#"> 图书</a></li>
+        <li style="width:400px"><a th:href="@{/client}"> 全部商品分类</a></li>
+        <li style="width:400px"><a th:href="@{/client}"> 首页</a></li>
     </ul>
 </nav>
 <!--网站中间内容开始-->
@@ -66,10 +53,10 @@
         <!--轮换显示的横幅广告图片-->
         <div class="scroll">
             <ul id="scroll_img">
-                <li><img th:src="@{/asserts/img/scroll-01.jpg}"/></li>
-                <li><img th:src="@{/asserts/img/scroll-02.jpg}"/></li>
-                <li><img th:src="@{/asserts/img/scroll-03.jpg}"/></li>
-                <li><img th:src="@{/asserts/img/scroll-04.jpg}"/></li>
+                <li><a href=""><img th:src="@{/asserts/img/scroll-01.jpg}"/></a></li>
+                <li><a href=""><img th:src="@{/asserts/img/scroll-02.jpg}"/></a></li>
+                <li><a href=""><img th:src="@{/asserts/img/scroll-03.jpg}"/></a></li>
+                <li><a href=""><img th:src="@{/asserts/img/scroll-04.jpg}"/></a></li>
             </ul>
             <ul id="scroll_number">
                 <li>1</li>
@@ -164,18 +151,11 @@
             </li>
         </ul>
         <ul>
-            <li><span>9</span>
-                <p>好妈妈胜过好老师</p>
+            <li th:each="good:${goods11}">
+                <p><a th:href="@{/clientGoodsDetailByGoodsName/}+${good.goodsName}">[[${good.goodsName}]]</a></p>
                 <dl>
-                    <dt><img src="images/newBook09.jpg"></dt>
-                    <dd><h1>好妈妈胜过好老师</h1>好妈妈胜过好老师2：自由的孩子最自觉</dd>
-                </dl>
-            </li>
-            <li><span>10</span>
-                <p>我们始终独自行走在这个世界</p>
-                <dl>
-                    <dt><img src="images/newBook10.jpg"></dt>
-                    <dd><h1>我们始终独自行走在这个世界</h1>十点读书、二更食堂、清华南都等各大微信阅读平台，简书、豆瓣千万读者口碑相传作品。</dd>
+                    <dt><a th:href="@{/clientGoodsDetailByGoodsName/}+${good.goodsName}"><img th:src="@{${good.goodsImg}}"></a></dt>
+                    <dd><h1><a th:href="@{/clientGoodsDetailByGoodsName/}+${good.goodsName}">[[${good.goodsName}]]</h1>[[${good.details}]]</a></dd>
                 </dl>
             </li>
         </ul>
@@ -188,7 +168,7 @@
         | <a href="#" target="_parent" class="footer_dull_red">货到付款</a> | <a href="#" target="_parent"
                                                                              class="footer_dull_red">品种最全</a> | <a
                 href="#" target="_parent" class="footer_dull_red">免费退换</a></div>
-    <div class="footer_end">Copyright (C) 蔚蓝网 2006-2016, All Rights Reserved <img src="images/validate.gif" alt="版权"
+    <div class="footer_end">Copyright (C) 小菜菜网 2006-2016, All Rights Reserved <img th:src="@{/asserts/img/validate.gif}" alt="版权"
                                                                                   style="vertical-align:middle;"/>
         京ICP证100488号 出版物经营许可证 京批100160号
     </div>

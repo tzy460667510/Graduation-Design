@@ -86,8 +86,9 @@
 											<option th:value="@{/orders}">状态</option>
 											<option th:value="@{/orderTotalByStatue1}" th:selected="${msg3 == '未发货'}">未发货</option>
 											<option th:value="@{/orderTotalByStatue2}" th:selected="${msg3 == '已发货'}">已发货</option>
-											<option th:value="@{/orderTotalByStatue3}" th:selected="${msg3 == '未评价'}">未评价</option>
-											<option th:value="@{/orderTotalByStatue4}" th:selected="${msg3 == '已评价'}">已评价</option>
+											<option th:value="@{/orderTotalByStatue3}" th:selected="${msg3 == '请求退货'}">请求退货</option>
+											<option th:value="@{/orderTotalByStatue4}" th:selected="${msg3 == '已退货'}">已退货</option>
+                                            <option th:value="@{/orderTotalByStatue5}" th:selected="${msg3 == '已收货'}">已收货</option>
 										</select>
 									</th>
 									<th>创建日期</th>
@@ -110,10 +111,12 @@
                                     <td th:text="${order.addressDetail}"></td>
                                     <td th:if="${order.statue} eq '1'" ><a th:href="@{/orderDetailByGoodsName/}+${order.goodsName}"></a>未发货</td>
 									<td th:if="${order.statue} eq '2'" th:text="${order.statue}?'已发货'"></td>
-									<td th:if="${order.statue} eq '3'" th:text="${order.statue}?'未评价'"></td>
-									<td th:if="${order.statue} eq '4'" th:text="${order.statue}?'已评价'"></td>
+									<td th:if="${order.statue} eq '3'" th:text="${order.statue}?'请求退货'"></td>
+									<td th:if="${order.statue} eq '4'" th:text="${order.statue}?'已退货'"></td>
+                                    <td th:if="${order.statue} eq '5'" th:text="${order.statue}?'已收货'"></td>
                                     <td th:text="${order.createDate}"></td>
 									<td>
+										<a th:href="@{/orderUpdateStatue/}+${order.orderId}" class="btn btn-sm btn-danger">状态处理</a>
 										<a class="btn btn-sm btn-primary" th:href="@{/orderUpdate/}+${order.orderId}">编辑</a>
 										<button th:attr="del_uri=@{/order/}+${order.orderId}" class="btn btn-sm btn-danger deleteBtn">删除</button>
 									</td>

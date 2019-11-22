@@ -403,6 +403,12 @@ public class GoodsController {
                     goods10.remove(i);
                 }
             }
+            List<Goods> goods11 =goodsService.queryAllGoodsByInventoryAsc();
+            for (int i = goods11.size()-1; i >0; i--) {
+                if (goods11.size()>10){
+                    goods11.remove(i);
+                }
+            }
             model.addAttribute("categories",categories);
             model.addAttribute("goods1",goods1);
             model.addAttribute("goods2",goods2);
@@ -414,6 +420,7 @@ public class GoodsController {
             model.addAttribute("goods8",goods8);
             model.addAttribute("goods9",goods9);
             model.addAttribute("goods10",goods10);
+            model.addAttribute("goods11",goods11);
             return "client/index";
         }else{
             List<Category> categories = categoryService.queryAllCategory();

@@ -24,7 +24,15 @@
         SELECT shoppingId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
             addressId,phone,addressDetail,statue,shoppingImg,shoppingTotal,createDate
         FROM shopping
-        WHERE userName = #{userName};
+        WHERE userName = #{userName}
+        AND statue=1;
+    </select>
+    <select id="queryShoppingByShoppingId" resultMap="BaseResultMap ">
+        SELECT shoppingId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,shoppingImg,shoppingTotal,createDate
+        FROM shopping
+        WHERE shoppingId = #{shoppingId}
+        AND statue=1;
     </select>
     <insert id="addShopping" parameterType="com.neusoft.graduation.entity.Shopping">
         INSERT INTO shopping(shoppingId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,addressId,phone,addressDetail,statue,shoppingImg,shoppingTotal,createDate)
@@ -34,7 +42,7 @@
         UPDATE shopping
         SET shoppingId = #{shoppingId},userId = #{userId},userName = #{userName},realName = #{realName},
         goodsId = #{goodsId},goodsName = #{goodsName},goodsCount = #{goodsCount},sellPrice = #{sellPrice},
-        shoppingTotal = #{shoppingTotal}
+        shoppingTotal = #{shoppingTotal},statue = #{statue}
         WHERE shoppingId = #{shoppingId};
     </update>
     <delete id="deleteShoppingByGoodsName" parameterType="String">

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-<title>蔚蓝网登录页面</title>
+<title>小菜菜网登录页面</title>
     <link th:href="@{/asserts/css/global.css}" rel="stylesheet"/>
     <link th:href="@{/asserts/css/layout.css}" rel="stylesheet"/>
     <link th:href="@{/asserts/css/template.css}" rel="stylesheet"/>
@@ -11,7 +11,10 @@
 <body>
 <header  class="header_middle">
     <div class="login_header_left"><img th:src="@{/asserts/img/logo.png}" alt="logo"/></div>
-    <div class="login_header_right"><a href="index.html" class="blue">首页</a> | <a href="product.html" class="blue">商品展示页</a>  | <a href="shopping.html" class="blue">购物车</a> | <a href="register.html" class="blue">注册</a></div>
+    <div class="login_header_right">
+        <a th:href="@{/client}" class="blue">首页</a> |
+        <a th:href="@{/client}" class="blue">商品展示页</a>  |
+        <a th:href="@{/client/toregister}" class="blue">注册</a></div>
 </header>
 
 <div id="main">
@@ -44,7 +47,8 @@
 
 <footer id="footer">
     <div class="footer_top"><a href="#" target="_parent" class="footer_dull_red">正版保障</a> | <a href="#" target="_parent" class="footer_dull_red">满额免运</a> | <a href="#" target="_parent" class="footer_dull_red">货到付款</a> | <a href="#" target="_parent" class="footer_dull_red">品种最全</a> | <a href="#" target="_parent" class="footer_dull_red">免费退换</a></div>
-    <div class="footer_end">Copyright (C) 蔚蓝网 2006-2016, All Rights Reserved  <img src="images/validate.gif"  alt="版权" style="vertical-align:middle;" /> 京ICP证100488号 出版物经营许可证 京批100160号</div>
+    <div class="footer_end">Copyright (C) 小菜菜网 2006-2016, All Rights Reserved  <img th:src="@{/asserts/img/validate.gif}" alt="版权"
+                                                                                   style="vertical-align:middle;"/> 京ICP证100488号 出版物经营许可证 京批100160号</div>
 </footer>
 <script th:src="@{/asserts/js/jquery-1.12.4.js}"></script>
 <script type="text/javascript">

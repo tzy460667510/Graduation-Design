@@ -26,6 +26,11 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
+    public Shopping queryShoppingByShoppingId(int id) {
+        return shoppingDao.queryShoppingByShoppingId(id);
+    }
+
+    @Override
     public int addShopping(Shopping shopping) {
         return shoppingDao.addShopping(shopping);
     }

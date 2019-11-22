@@ -97,4 +97,11 @@
     <delete id="deleteOrderByOrderId" parameterType="int">
         DELETE FROM orders WHERE orderId=#{orderId};
     </delete>
+    <select id="queryOrderByYearMonth" resultMap="BaseResultMap ">
+       SELECT year(createDate),month(createDate),orderId,userId,userName,realName,goodsId,goodsName,goodsCount,sellPrice,
+            addressId,phone,addressDetail,statue,orderImg,orderTotal
+        FROM orders
+        WHERE year(createDate) = 2019
+        group by year(createDate), month(createDate);
+    </select>
 </mapper>
